@@ -1,0 +1,49 @@
+.head{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+  .icon:hover{
+      cursor: pointer;
+      color: #007a5a;
+  }
+
+  .lec-table{
+      border: 1px solid black;
+  }
+
+  .btn-Play{
+      background-color: #007a5a;
+  }
+
+  table{
+      width: 100%;
+      border: 1px solid black;
+  }
+
+  th td{
+      border: 1px solid black;
+  }
+
+  .mat-column-position {
+      flex: 0 0 5% !important;
+      width: 100px !important;
+  }
+
+  .mat-column-name{
+    flex: 0 0 15% !important;
+    width: 100px !important;
+  }
+
+  
+
+
+  /* .mat-row:nth-child(even){
+      background-color: #666769;
+      color: white;
+   } */
+
+    /* .mat-row:nth-child(odd){
+        background-color:black;
+    } */
+  

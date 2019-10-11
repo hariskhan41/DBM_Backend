@@ -1,0 +1,34 @@
+.myClass{
+    font-size: 18px;
+    text-align: center;
+    
+}
+.myClass:hover{
+    color:purple !important;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.container .btn {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  padding: 10px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  
+  display:none;
+}
+
+.container:hover img{
+    filter: blur(2px); 
+}
+.container:hover .btn{
+   
+     display:block;
+ }
+ 

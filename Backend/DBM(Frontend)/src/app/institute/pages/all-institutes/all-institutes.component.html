@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h1 style="margin-left:70px">Institutes Management</h1>
+<a routerLink='/AddInstitutes'><button mat-raised-button class="btn-add" color="primary">Add
+        Institute</button></a>
+<br>
+<br>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="margin-left:70px">
+
+
+    <ng-container matColumnDef="Position">
+        <th mat-header-cell *matHeaderCellDef class="head">Sr. No</th>
+        <td mat-cell *matCellDef="let element">{{element.Position}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="InstituteName">
+        <th mat-header-cell *matHeaderCellDef class="head">Institute</th>
+        <td mat-cell *matCellDef="let element">{{element.InstituteName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Admin">
+        <th mat-header-cell *matHeaderCellDef class="head">Admin</th>
+        <td mat-cell *matCellDef="let element">{{element.Admin}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="AddedOn">
+        <th mat-header-cell *matHeaderCellDef class="head">Admin Assigned On</th>
+        <td mat-cell *matCellDef="let element">{{element.AddedOn}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Edit">
+        <th mat-header-cell *matHeaderCellDef class="head"></th>
+        <td mat-cell *matCellDef="let element">
+            <a routerLink='/Institute/Edit'>
+                <mat-icon class="icon">edit</mat-icon>
+            </a>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Delete">
+        <th mat-header-cell *matHeaderCellDef class="head"></th>
+        <td mat-cell *matCellDef="let element">
+            <mat-icon class="icon">delete</mat-icon>
+        </td>
+    </ng-container>
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -1,0 +1,53 @@
+table {
+    width: 90%;
+    min-width:900px ;
+  }
+  
+  a {
+    color: black;
+  }
+ 
+
+
+ .btn-add {
+  background-color: #007a5a;
+  color: white;
+  margin-left: 70px;
+  height: 45px;
+  width:180px;
+}
+
+ .head{
+   font-size:15px;
+   font-weight: bold;
+ }
+
+ .mat-column-Position{
+  flex:0 0 25% !important;
+  width: 200px !important;
+}
+
+.mat-column-InstituteName{
+  flex:0 0 25% !important;
+  width: 200px !important;
+}
+
+.mat-column-Admin{
+  flex:0 0 25% !important;
+  width: 200px !important;
+}
+
+.mat-column-AddedOn{
+  flex:0 0 25% !important;
+  width: 200px !important;
+}
+
+.mat-column-Edit{
+  flex:0 0 25% !important;
+  width: 200px !important;
+}
+
+.icon:hover{
+  cursor: pointer;
+  color: #007a5a;
+}

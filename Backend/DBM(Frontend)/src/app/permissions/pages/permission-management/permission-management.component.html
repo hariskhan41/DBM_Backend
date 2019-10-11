@@ -1,0 +1,86 @@
+<!-- <mat-card>
+    <mat-card-content>
+        <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-around center">
+            <div fxLayout="column"></div>
+          <div fxLayout="column">Group</div>
+          <div fxLayout="column">User</div>
+          <div fxLayout="column">Select User</div>
+          <div fxLayout="column">Permission</div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+          <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-around center">
+              <div fxLayout="column" aria-rowspan="3"><i class="icon-group"></i></div>
+              <div fxLayout="column" aria-rowspan="3">Group</div>
+              <div fxLayout="column" aria-rowspan="3">User</div>
+              <div fxLayout="column" aria-rowspan="3">Select User</div>
+              <div fxLayout="column"><div fxLayout="row" fxFlex="100" fxLayoutAlign="space-around center">
+                  permission 1
+                </div>
+                <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-around center">
+                    permission 1
+                  </div></div>
+            </div>
+      </mat-card-content>
+</mat-card> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h1 style="margin-left:70px">Permission Management</h1>
+<a routerLink='/permission/AddGroup'><button mat-raised-button class="btn-add" color="primary">Add
+    Group</button></a>
+<br>
+<br>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="margin-left:70px">
+
+  <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="icons">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element"><i class="fas fa-users" style="font-size:40px "></i> </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="Group">
+    <th mat-header-cell *matHeaderCellDef class="head">Group</th>
+    <td mat-cell *matCellDef="let element">{{element.Group}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Users">
+    <th mat-header-cell *matHeaderCellDef class="head">Users</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-checkbox>All</mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="SelectUser">
+    <th mat-header-cell *matHeaderCellDef class="head">Select User</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>Select User</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="permission">
+    <th mat-header-cell *matHeaderCellDef class="head">Permissions</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>Assign Permissions</mat-label>
+        <mat-select [formControl]="permissions" multiple>
+          <mat-option *ngFor="let permissions of permissionList" [value]="permissions">{{permissions}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

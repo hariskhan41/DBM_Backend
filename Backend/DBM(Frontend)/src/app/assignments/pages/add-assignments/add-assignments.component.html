@@ -1,0 +1,31 @@
+<mat-card class="card-login">
+    <mat-card-title>Add Assignment</mat-card-title>
+    <br>
+    <mat-card-content>
+        <mat-form-field color="accent" appearance="outline" class="form-input">
+            <mat-label>Title</mat-label>
+            <input matInput>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field appearance="outline" class="form-input" color="accent">
+            <mat-label>Submission Date</mat-label>
+            <input matInput [matDatepicker]="simpleDate">
+            <mat-datepicker-toggle matSuffix [for]="simpleDate"></mat-datepicker-toggle>
+            <mat-datepicker #simpleDate></mat-datepicker>
+        </mat-form-field>
+
+        <br>
+        <form [formGroup]="form" novalidate>
+            <mat-form-field appearance="outline" class="form-input" color="accent">
+                <mat-label>Assignment File</mat-label>
+                <ngx-mat-file-input formControlName="file"></ngx-mat-file-input>
+                <mat-icon matSuffix>folder</mat-icon>
+            </mat-form-field>
+        </form>
+        <br>
+        <br>
+        <button mat-raised-button class="btn-login" color="primary">Add</button>
+        <br>
+    </mat-card-content>
+</mat-card>
