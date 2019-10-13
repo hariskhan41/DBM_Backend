@@ -16,7 +16,7 @@ export class SignUpService {
     return this.http.post(this.rootURL + '/Users', formData);
   }
 
-  // getInstitutes(formData: SignUp){
-  //   return this.http.get(this.rootURL + 'getInstitutes')
-  // }
+  getInstitutes(){
+    return this.http.get(this.rootURL + '/Users')
+  }
 }

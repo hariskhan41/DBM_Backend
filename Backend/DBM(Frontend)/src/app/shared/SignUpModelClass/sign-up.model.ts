@@ -1,5 +1,5 @@
 export class SignUp {
-    Id: number;
+    //Id: number;
     FirstName: string;
     LastName: string;
     Cnic: string;
@@ -7,7 +7,8 @@ export class SignUp {
     Password: string;
     Designation: string;
     DateOfBirth: Date;
-    LoginStatus: number;
-    ActiveStatue: number;
-    InstituteId: number;
+    //LoginStatus: number;
+    //ActiveStatue: number;
+    //InstituteId: number;
+    InstituteName: string;
 }

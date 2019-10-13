@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { of } from 'rxjs';
+
 import { NgForm } from '@angular/forms';
 import { SignUpService } from "src/app/shared/SignUpService/sign-up.service";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 
 export interface Designation {
@@ -9,9 +12,9 @@ export interface Designation {
   viewValue: string;
 }
 
-export interface Institute {
-  value: string;
-  viewValue: string;
+export interface institute {
+  id: string;
+  name: string;
 }
 
 @Component({
@@ -21,10 +24,59 @@ export interface Institute {
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private service: SignUpService) { }
+  form: FormGroup;
+  institutes = [''];
+
+  // constructor(private service: SignUpService) {
+    
+  // }
+
+  constructor(private service: SignUpService, private httpService: HttpClient) {
+
+  }
+
+  myInstitute: institute[];
+  selected = null;
+
+  // constructor(private service: SignUpService, private formBuilder: FormBuilder) {
+  //   this.form = this.formBuilder.group({
+  //     institutes: ['']
+  //   });
+  //   //this.institutes = this.getInstitutes();
+    
+  // }
+
+  // getInstitutes() {
+  //   return this.service.getInstitutes().subscribe(p => {
+
+  //   });
+  //   // return [
+  //   //   { value: '1', viewValue: 'order 1' },
+  //   //   { value: '2', viewValue: 'order 2' },
+  //   //   { value: '3', viewValue: 'order 3' },
+  //   //   { value: '4', viewValue: 'order 4' }
+  //   // ];
+  // }
+
+
 
   ngOnInit() {
+    
     this.resetForm();
+    this.service.getInstitutes().subscribe(
+      data => {
+        this.myInstitute = data as institute[];
+        alert(this.myInstitute[0]["id"]);
+      },
+      (err: HttpErrorResponse) => {
+        console.log (err.message);
+      }
+    );
+    for (let prop in this.myInstitute)
+    {
+      console.log(prop);
+    }
+    
   }
 
   resetForm(form?: NgForm) {
@@ -32,7 +84,7 @@ export class SignupComponent implements OnInit {
       form.resetForm();
     }
     this.service.formData = {
-      Id: 0,
+      //Id: 0,
       FirstName: '',
       LastName: '',
       Cnic: '',
@@ -40,9 +92,10 @@ export class SignupComponent implements OnInit {
       Password: '',
       Designation: '',
       DateOfBirth: new Date(Date.now()),
-      LoginStatus: 0,
-      ActiveStatue: 0,
-      InstituteId: 0,
+      //LoginStatus: 0,
+      //ActiveStatue: 0,
+      //InstituteId: 0,
+      InstituteName: ''
     }
   }
 
@@ -63,9 +116,9 @@ export class SignupComponent implements OnInit {
     { value: 'Admin', viewValue: 'Admin' }
   ];
 
-  Institutes: Institute[] = [
-    { value: 'Uet', viewValue: 'Uet' }
-  ];
+  // Institutes: Institute[] = [
+  //   { value: 'Uet', viewValue: 'Uet' }
+  // ];
 
 
   checkPasswords(group: FormGroup) { // here we have the 'passwords' group

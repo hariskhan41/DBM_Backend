@@ -7,25 +7,29 @@
         <br>
         <mat-card-content>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <input type="hidden" name="Id" value="service.formData.Id">
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <input type="hidden" name="Designation" value="service.formData.Designation">
             </div>
 
             <div class="form-group">
+                <input type="hidden" name="InstituteName" value="service.formData.InstituteName">
+            </div>
+
+            <!-- <div class="form-group">
                 <input type="hidden" name="LoginStatus" value="service.formData.LoginStatus">
-            </div>
+            </div> -->
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <input type="hidden" name="ActiveStatue" value="service.formData.ActiveStatue">
-            </div>
+            </div> -->
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <input type="hidden" name="InstituteId" value="service.formData.InstituteId">
-            </div>
+            </div> -->
 
 
 
@@ -72,6 +76,22 @@
                     </mat-select>
                     <mat-error *ngIf="LastName.errors?.required">
                         <mat-icon>error</mat-icon> You must enter select a designation
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <br>
+
+            <div class="form-group">
+                <mat-form-field color="accent" appearance="outline" class="form-input form-control">
+                    <mat-label>Select Institute</mat-label>
+                    <mat-select name="InstituteName" #InstituteName="ngModel" id="orders" [ngModel]="service.formData.InstituteName"
+                        class="form-control" required>
+                        <mat-option *ngFor="let institute of myInstitute;" [value]="institute.name">
+                            {{institute.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="LastName.errors?.required">
+                        <mat-icon>error</mat-icon> You must enter select an Institute
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -143,7 +163,8 @@
 
             <br>
             <br>
-            <button type="submit" mat-raised-button class="btn-login" color="primary" [disabled]="form.form.invalid">Sign Up</button>
+            <button type="submit" mat-raised-button class="btn-login" color="primary"
+                [disabled]="form.form.invalid">Sign Up</button>
             <br>
         </mat-card-content>
     </mat-card>

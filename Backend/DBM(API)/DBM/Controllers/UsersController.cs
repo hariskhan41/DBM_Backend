@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DBM.Models;
+using DBM.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,24 +29,48 @@ namespace DBM.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public void Post([FromBody] Users users)
+        public void Post([FromBody] UserRegistrationViewModel users)
         {
-            users.InstituteId = 1;
+            //users.InstituteId = 1;
             DBMContext db = new DBMContext();
-            db.Users.Add(users);
+            Users u = new Users();
+            u.FirstName = users.FirstName;
+            u.LastName = users.LastName;
+            u.Cnic = users.Cnic;
+            u.Email = users.Email;
+            u.Password = users.Password;
+            u.DateOfBirth = users.DateOfBirth;
+            u.Designation = users.Designation;
+            u.LoginStatus = 0;
+            u.ActiveStatue = 1;
+            u.InstituteId = db.Institute.Where(p => p.Name.Equals(users.InstituteName)).FirstOrDefault().Id;
+            db.Users.Add(u);
+            //db.Users.Add(users);
             db.SaveChanges();
         }
 
+        //[HttpGet]
+        //public List<string> getInstitutes()
+        //{
+        //    DBMContext db = new DBMContext();
+        //    List<string> s = new List<string>();
+        //    foreach (Institute i in db.Institute)
+        //    {
+        //        s.Add(i.Name);
+        //    }
+        //    return s;
+        //}
+
         [HttpGet]
-        public List<string> getInstitutes()
+        public IEnumerable<Institute> get()
         {
+            List<Institute> institutes = new List<Institute>();
             DBMContext db = new DBMContext();
-            List<string> s = new List<string>();
             foreach (Institute i in db.Institute)
             {
-                s.Add(i.Name);
+                institutes.Add(i);
             }
-            return s;
+            return institutes;
         }
 
         // PUT: api/Users/5
