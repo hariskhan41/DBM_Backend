@@ -84,8 +84,8 @@
             <div class="form-group">
                 <mat-form-field color="accent" appearance="outline" class="form-input form-control">
                     <mat-label>Select Institute</mat-label>
-                    <mat-select name="InstituteName" #InstituteName="ngModel" id="orders" [ngModel]="service.formData.InstituteName"
-                        class="form-control" required>
+                    <mat-select name="InstituteName" #InstituteName="ngModel" id="orders"
+                        [ngModel]="service.formData.InstituteName" class="form-control" required>
                         <mat-option *ngFor="let institute of myInstitute;" [value]="institute.name">
                             {{institute.name}}
                         </mat-option>
@@ -107,6 +107,9 @@
                     </mat-error>
                     <mat-error *ngIf="Email.errors?.email">
                         <mat-icon>error</mat-icon> Invalid email (abc@example.com)
+                    </mat-error>
+                    <mat-error *ngIf="!Email.errors?.uniqueEmailValidator && submitted">
+                        <mat-icon>error</mat-icon> Unique email error.
                     </mat-error>
                 </mat-form-field>
             </div>
