@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, ValidatorFn } from '@angular/forms';
 import { of } from 'rxjs';
 
 import { NgForm } from '@angular/forms';
@@ -17,6 +17,11 @@ export interface institute {
   name: string;
 }
 
+export interface error_messages {
+  EmailAddress: string;
+  message: string;
+}
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -26,9 +31,12 @@ export class SignupComponent implements OnInit {
 
   form: FormGroup;
   institutes = [''];
+  successfulSave: boolean;
+  errors: string[];
+  temp1: any;
 
   // constructor(private service: SignUpService) {
-    
+
   // }
 
   constructor(private service: SignUpService, private httpService: HttpClient) {
@@ -43,7 +51,7 @@ export class SignupComponent implements OnInit {
   //     institutes: ['']
   //   });
   //   //this.institutes = this.getInstitutes();
-    
+
   // }
 
   // getInstitutes() {
@@ -61,7 +69,7 @@ export class SignupComponent implements OnInit {
 
 
   ngOnInit() {
-    
+
     this.resetForm();
     this.service.getInstitutes().subscribe(
       data => {
@@ -69,14 +77,13 @@ export class SignupComponent implements OnInit {
         alert(this.myInstitute[0]["id"]);
       },
       (err: HttpErrorResponse) => {
-        console.log (err.message);
+        console.log(err.message);
       }
     );
-    for (let prop in this.myInstitute)
-    {
+    for (let prop in this.myInstitute) {
       console.log(prop);
     }
-    
+    this.errors = [];
   }
 
   resetForm(form?: NgForm) {
@@ -99,15 +106,23 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  p = "";
+
   onSubmit(form: NgForm) {
+    let error_msg: {};
     this.service.postAddUser(form.value).subscribe(
       res => {
         this.resetForm(form);
       },
       err => {
         console.log(err);
+        this.temp1 = err;
+        console.error(err);
+        alert(this.temp1.error["EmailAddress"]);
+        this.p = this.temp1.error["EmailAddress"];
       }
-    )
+    );
+
   }
 
   designations: Designation[] = [
@@ -131,10 +146,26 @@ export class SignupComponent implements OnInit {
 
   FirstName = new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]);
   LastName = new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]);
-  email = new FormControl('', [Validators.required, Validators.email]);
+  email = new FormControl('', [Validators.required, Validators.email, this.uniqueEmailValidator(this.p)]);
   CNIC = new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(13), Validators.minLength(13)]);
   DateOfBirth = new FormControl('', [Validators.required]);
   Password = new FormControl('', [Validators.required, Validators.pattern('')]);
+
+  uniqueEmailValidator(s: string): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: string } | null => {
+      if (s == "")
+      {
+        return { 'InvalidEmail': "Unique Email Error" }
+      }
+      return null;
+    };
+  }
+
+  getErrorMessageUniqueEmail()
+  {
+    return this.email.hasError('uniqueEmailValidator') ? 'Unique Email Error':
+    '';
+  }
 
   getErrorMessageEmail() {
     return this.email.hasError('required') ? 'You must enter a value' :

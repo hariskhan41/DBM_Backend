@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBM.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,5 +31,22 @@ namespace DBM.ViewModels
         //public int ActiveStatue { get; set; }
 
         //public int InstituteId { get; set; }
+
+
+        public bool EmailAlreadyExists(string email, string designation)
+        {
+            DBMContext db = new DBMContext();
+            Users u = db.Users.Where(u1 => (u1.Email == email && u1.Designation == designation)).FirstOrDefault();
+            if (u != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
+
+    
 }

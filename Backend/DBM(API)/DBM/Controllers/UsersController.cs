@@ -29,10 +29,15 @@ namespace DBM.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public void Post([FromBody] UserRegistrationViewModel users)
+        public IActionResult Post([FromBody] UserRegistrationViewModel users)
         {
             //users.InstituteId = 1;
             DBMContext db = new DBMContext();
+            if (users.EmailAlreadyExists(users.Email, users.Designation))
+            {
+                ModelState.AddModelError("EmailAddress", "This email already exists for this designation.");
+                return BadRequest(ModelState);
+            }
             Users u = new Users();
             u.FirstName = users.FirstName;
             u.LastName = users.LastName;
@@ -47,6 +52,7 @@ namespace DBM.Controllers
             db.Users.Add(u);
             //db.Users.Add(users);
             db.SaveChanges();
+            return Ok();
         }
 
         //[HttpGet]
