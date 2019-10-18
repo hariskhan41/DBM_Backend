@@ -1,3 +1,3 @@
 export class AddInstituteModelClass {
-    InstituteName:string;
+    InstituteName: string;
 }

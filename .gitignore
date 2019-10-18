@@ -3,3 +3,7 @@ Backend/DBM(API)/DBM/bin/
 Backend/DBM(API)/DBM/obj/
 *.suo
 Backend/DBM(API)/.vs/
+Backend/DBM(API)/DBM/Models/DBMContext.cs
+Backend/DBM(API)/DBM/Models/DBMContext.cs
+Backend/DBM(API)/DBM/appsettings.json
+Backend/DBM(API)/DBM/appsettings.json

@@ -7,8 +7,6 @@ namespace DBM.ViewModels
 {
     public class InstitutesViewModel
     {
-
-        public int id { set; get; }
-        public string name { get; set; }
+        public string InstituteName { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
 
 import {MatGridListModule} from '@angular/material/grid-list'
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +27,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { AssignmentsModule } from './assignments/assignments.module';
 import { TeacherModule } from './teacher/teacher.module';
 import { InstituteModule } from './institute/institute.module';
+import { AddInstituteServiceService } from './shared/InstituteService/add-institute-service.service';
 
 
 
@@ -61,9 +63,10 @@ import { InstituteModule } from './institute/institute.module';
     AssignmentsModule,
     TeacherModule,
     InstituteModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [AddInstituteServiceService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

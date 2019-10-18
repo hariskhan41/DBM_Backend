@@ -43,7 +43,7 @@ namespace DBM.Controllers
                 DBMContext db = new DBMContext();
                 Institute i = new Institute();
                 
-                i.Name = institute.name;
+                i.Name = institute.InstituteName;
                 db.Institute.Add(i);
                 db.SaveChanges();
             }
@@ -58,7 +58,7 @@ namespace DBM.Controllers
         public void Put(int id, [FromBody] InstitutesViewModel institutes)
         {
             DBMContext db = new DBMContext();
-            db.Institute.Where(b => b.Id == id).FirstOrDefault().Name = institutes.name;
+            db.Institute.Where(b => b.Id == id).FirstOrDefault().Name = institutes.InstituteName;
             db.SaveChanges();
         }
 

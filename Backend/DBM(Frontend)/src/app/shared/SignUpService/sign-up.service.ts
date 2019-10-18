@@ -7,7 +7,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class SignUpService {
 
-  formData: SignUp;
+  formData = new SignUp();
   readonly rootURL = 'http://localhost:3845/api'
 
   constructor(private http:HttpClient) { }
