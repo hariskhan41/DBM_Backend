@@ -17,12 +17,10 @@ namespace DBM.Controllers
         [HttpGet]
         public IEnumerable<Institute> Get()
         {
-     
             List<Institute> institutes = new List<Institute>();
             DBMContext db = new DBMContext();
             institutes = db.Institute.ToList();
-            return institutes;
-           
+            return institutes;  
         }
 
       
@@ -36,40 +34,51 @@ namespace DBM.Controllers
 
         // POST: api/Institute
         [HttpPost]
-        public void Post([FromBody] InstitutesViewModel institute)
+        public IActionResult Post([FromBody] InstitutesViewModel institute)
         {
-            try
+
+            DBMContext db = new DBMContext();
+            Institute i = new Institute();
+            if(db.Institute.Any(b=>b.Name == institute.name))
             {
-                DBMContext db = new DBMContext();
-                Institute i = new Institute();
-                
-                i.Name = institute.InstituteName;
-                db.Institute.Add(i);
-                db.SaveChanges();
+                ModelState.AddModelError("", "This Institute already exists");
+                return BadRequest(ModelState);
             }
-            catch(Exception e)
-            {
-                throw (e);
-            }
+            i.Name = institute.name;
+            db.Institute.Add(i);
+            db.SaveChanges();
+            return Ok();
         }
 
         // PUT: api/Institute/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] InstitutesViewModel institutes)
+        public IActionResult Put(int id, [FromBody] InstitutesViewModel institutes)
         {
             DBMContext db = new DBMContext();
-            db.Institute.Where(b => b.Id == id).FirstOrDefault().Name = institutes.InstituteName;
+            if(db.Institute.Any(b=>b.Name == institutes.name))
+            {
+                ModelState.AddModelError("", "This Institute already exists");
+                return BadRequest(ModelState);
+            }
+            db.Institute.Where(b => b.Id == id).FirstOrDefault().Name = institutes.name;
             db.SaveChanges();
+            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             DBMContext db = new DBMContext();
+            if(!db.Institute.Any(b=>b.Id == id))
+            {
+                ModelState.AddModelError("", "Institute at this id doesn't exist");
+                return BadRequest(ModelState);
+            }
             Institute i = db.Institute.Single(b => b.Id == id);
             db.Institute.Remove(i);
             db.SaveChanges();
+            return Ok();
         }
     }
 }
