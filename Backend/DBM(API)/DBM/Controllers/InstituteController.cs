@@ -39,12 +39,12 @@ namespace DBM.Controllers
 
             DBMContext db = new DBMContext();
             Institute i = new Institute();
-            if(db.Institute.Any(b=>b.Name == institute.name))
+            if(db.Institute.Any(b=>b.Name == institute.InstituteName))
             {
                 ModelState.AddModelError("", "This Institute already exists");
                 return BadRequest(ModelState);
             }
-            i.Name = institute.name;
+            i.Name = institute.InstituteName;
             db.Institute.Add(i);
             db.SaveChanges();
             return Ok();
@@ -55,12 +55,12 @@ namespace DBM.Controllers
         public IActionResult Put(int id, [FromBody] InstitutesViewModel institutes)
         {
             DBMContext db = new DBMContext();
-            if(db.Institute.Any(b=>b.Name == institutes.name))
+            if(db.Institute.Any(b=>b.Name == institutes.InstituteName))
             {
                 ModelState.AddModelError("", "This Institute already exists");
                 return BadRequest(ModelState);
             }
-            db.Institute.Where(b => b.Id == id).FirstOrDefault().Name = institutes.name;
+            db.Institute.Where(b => b.Id == id).FirstOrDefault().Name = institutes.InstituteName;
             db.SaveChanges();
             return Ok();
         }
