@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DBM.Models;
+using DBM.ViewModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace DBM.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class InstituteController : ControllerBase
+    {
+        // GET: api/Institute
+        [HttpGet]
+        public IEnumerable<Institute> Get()
+        {
+     
+            List<Institute> institutes = new List<Institute>();
+            DBMContext db = new DBMContext();
+            institutes = db.Institute.ToList();
+            return institutes;
+           
+        }
+
+      
+
+        // GET: api/Institute/5
+        [HttpGet("{id}", Name = "Get")]
+        public string Get(int id)
+        {
+            return "value";
+        }
+
+        // POST: api/Institute
+        [HttpPost]
+        public void Post([FromBody] InstitutesViewModel institute)
+        {
+            try
+            {
+                DBMContext db = new DBMContext();
+                Institute i = new Institute();
+                
+                i.Name = institute.name;
+                db.Institute.Add(i);
+                db.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                throw (e);
+            }
+        }
+
+        // PUT: api/Institute/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] InstitutesViewModel institutes)
+        {
+            DBMContext db = new DBMContext();
+            db.Institute.Where(b => b.Id == id).FirstOrDefault().Name = institutes.name;
+            db.SaveChanges();
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            DBMContext db = new DBMContext();
+            Institute i = db.Institute.Single(b => b.Id == id);
+            db.Institute.Remove(i);
+            db.SaveChanges();
+        }
+    }
+}

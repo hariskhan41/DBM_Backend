@@ -29,7 +29,6 @@ namespace DBM
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<DBMContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
-
             services.AddCors();
         }
 
