@@ -8,5 +8,7 @@ namespace DBM.ViewModels
     public class InstitutesViewModel
     {
         public string InstituteName { get; set; }
+
+        public string AdminName { get; set; }
     }
 }

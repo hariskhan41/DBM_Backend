@@ -32,12 +32,26 @@
 
                 <mat-form-field color="accent" appearance="outline" class="form-input">
                     <mat-label>Institute Name</mat-label>
-                    <input matInput name="InstituteName" #InstituteName="ngModel" [ngModel]="service.formData.InstituteName"
-                        class="form-control" required>
+                    <input matInput name="InstituteName" #InstituteName="ngModel"
+                        [ngModel]="service.formData.InstituteName" class="form-control" required>
+                    
+
                 </mat-form-field>
+
+                <!-- <mat-form-field color="accent" appearance="outline" class="form-input">
+                    <input type="hidden" name="InstituteName" #InstituteName="ngModel"
+                        [ngModel]="service.formData.InstituteName" class="form-control" required>
+                    <div *ngIf="InstituteNameError">
+                        <mat-error>
+                            <mat-icon>error</mat-icon> {{InstituteNameError}}
+                        </mat-error>
+                    </div>
+                </mat-form-field> -->
             </div>
 
             
+
+
             <br>
             <button type="submit" mat-raised-button class="btn-login" color="primary"
                 [disabled]="form.form.invalid">Add</button>

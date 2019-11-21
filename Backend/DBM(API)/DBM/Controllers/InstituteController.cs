@@ -15,12 +15,23 @@ namespace DBM.Controllers
     {
         // GET: api/Institute
         [HttpGet]
-        public IEnumerable<Institute> Get()
+        public IEnumerable<InstitutesViewModel> Get()
         {
-            List<Institute> institutes = new List<Institute>();
+            //List<Institute> institutes = new List<Institute>();
+            //DBMContext db = new DBMContext();
+            //institutes = db.Institute.ToList();
+            //return institutes;
+
             DBMContext db = new DBMContext();
-            institutes = db.Institute.ToList();
-            return institutes;  
+            List<InstitutesViewModel> lstInstitutes = new List<InstitutesViewModel>();
+            foreach (Institute i in db.Institute)
+            {
+                InstitutesViewModel ins = new InstitutesViewModel();
+
+                ins.InstituteName = i.Name;
+                lstInstitutes.Add(ins);
+            }
+            return lstInstitutes;
         }
 
       
@@ -41,7 +52,7 @@ namespace DBM.Controllers
             Institute i = new Institute();
             if(db.Institute.Any(b=>b.Name == institute.InstituteName))
             {
-                ModelState.AddModelError("", "This Institute already exists");
+                ModelState.AddModelError("UniqueInstituteName", "This Institute already exists");
                 return BadRequest(ModelState);
             }
             i.Name = institute.InstituteName;

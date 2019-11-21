@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DBM.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DBM.Controllers
@@ -10,6 +11,12 @@ namespace DBM.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+
+        public ValuesController(DBMContext context)
+        {
+
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()

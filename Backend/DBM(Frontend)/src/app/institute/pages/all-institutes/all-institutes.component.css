@@ -1,12 +1,49 @@
-table {
-    width: 90%;
-    min-width:900px ;
+/* table {
+    
   }
+
+  td, th {
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+    width: 80px;
+  } */
+
+  #Institutes {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  #Institutes td, #Institutes th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  #Institutes tr:nth-child(even){background-color: #f2f2f2;}
+
+  #Institutes tr:hover {background-color: #ddd;}
+
+  #Institutes th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #007a5a;
+    color: white;
+    /*  #4CAF50 */
+  }
+
   
   a {
     color: black;
   }
  
+  .card-login{
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    min-width: 400px;
+  }
 
 
  .btn-add {

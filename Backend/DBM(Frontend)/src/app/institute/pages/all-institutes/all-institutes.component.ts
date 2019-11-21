@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { AddInstituteServiceService } from 'src/app/shared/InstituteService/add-institute-service.service';
+import { AddInstituteModelClass } from 'src/app/shared/InstituteModelClass/add-institute-model-class.model';
+
+export interface Designation {
+  value: string;
+  viewValue: string;
+}
 
 export interface PeriodicElement {
 
@@ -16,24 +23,24 @@ export interface Food {
   viewValue: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    Position:'1',
-    InstituteName: 'UET',
-    Admin:'xyz',
-    AddedOn: moment().format('10/7/2018'),
-    Edit: '',
-    Delete: ''
-  },
-  {
-    Position:'2',
-    InstituteName: 'Fast',
-    Admin:'xyz',
-    AddedOn: moment().format('10/7/2018'),
-    Edit: '',
-    Delete: ''
-  },
-];
+// const ELEMENT_DATA: PeriodicElement[] = [
+//   {
+//     Position: '1',
+//     InstituteName: 'UET',
+//     Admin: 'xyz',
+//     AddedOn: moment().format('10/7/2018'),
+//     Edit: '',
+//     Delete: ''
+//   },
+//   {
+//     Position: '2',
+//     InstituteName: 'Fast',
+//     Admin: 'xyz',
+//     AddedOn: moment().format('10/7/2018'),
+//     Edit: '',
+//     Delete: ''
+//   },
+// ];
 
 
 @Component({
@@ -43,13 +50,25 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AllInstitutesComponent implements OnInit {
 
-  constructor() { }
+  designations: Designation[] = [
+    { value: 'Teacher', viewValue: 'Teacher' },
+    { value: 'Student', viewValue: 'Student' },
+    { value: 'Admin', viewValue: 'Admin' }
+  ];
 
-  ngOnInit() {
+  constructor(private service: AddInstituteServiceService) {
+
   }
 
-  dataSource = ELEMENT_DATA;
-  displayedColumns: string[] = ['Position', 'InstituteName', 'Admin', 'AddedOn', 'Edit', 'Delete'];
+  lst: AddInstituteModelClass[];
+
+  ngOnInit() {
+    this.service.getInstitutesList();
+    this.lst = this.service.list;
+  }
+
+  dataSource = this.service.list;
+  displayedColumns: string[] = ['instituteName'];
 
 
 }

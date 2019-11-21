@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 
-import {MatGridListModule} from '@angular/material/grid-list'
+import { MatGridListModule } from '@angular/material/grid-list'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from './shared/shared.module';
 import { CoursesModule } from './courses/courses.module';
 import { MatCardModule } from '@angular/material/card';
+import { ToastrModule } from 'ngx-toastr';
 
 
 import { LoginRegistrationModule } from './login-registration/login-registration.module';
@@ -28,6 +30,8 @@ import { AssignmentsModule } from './assignments/assignments.module';
 import { TeacherModule } from './teacher/teacher.module';
 import { InstituteModule } from './institute/institute.module';
 import { AddInstituteServiceService } from './shared/InstituteService/add-institute-service.service';
+import { SignInService } from './shared/SignInService/sign-in.service';
+
 
 
 
@@ -41,7 +45,7 @@ import { AddInstituteServiceService } from './shared/InstituteService/add-instit
     AppComponent,
 
     MainPageComponent,
-  
+
   ],
   imports: [
     BrowserModule,
@@ -64,9 +68,11 @@ import { AddInstituteServiceService } from './shared/InstituteService/add-instit
     TeacherModule,
     InstituteModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot(),
+    ReactiveFormsModule
   ],
-  providers: [AddInstituteServiceService],
+  providers: [AddInstituteServiceService, SignInService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

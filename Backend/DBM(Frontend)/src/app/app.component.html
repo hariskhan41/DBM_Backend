@@ -1,4 +1,5 @@
-<app-header></app-header>
+<app-header *ngIf="!LoggedIn"></app-header>
+<app-header-logout *ngIf="LoggedIn"></app-header-logout>
 <br><br><br><br>
 <!-- <app-all-courses></app-all-courses> -->
 <!-- <app-courses></app-courses> -->

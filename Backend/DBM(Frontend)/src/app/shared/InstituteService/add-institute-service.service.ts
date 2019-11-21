@@ -7,13 +7,23 @@ import { HttpClient } from "@angular/common/http";
 export class AddInstituteServiceService {
 
   formData = new AddInstituteModelClass();
-  readonly rootURL = 'http://localhost:3845/api'
+  readonly rootURL = 'http://localhost:3845/api';
+  list: AddInstituteModelClass[];
+
   constructor(private http: HttpClient) { }
-  
+
   postAddInstitute(formData: AddInstituteModelClass) {
     return this.http.post(this.rootURL + '/Institute', formData);
   }
 
+  getInstitutesList() {
+    this.http.get(this.rootURL + '/Institute')
+    .toPromise()
+    .then(res => {
+      this.list = res as AddInstituteModelClass[];
+      console.log(this.list);
+    });
+  }
 
 }
 

@@ -12,6 +12,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatSelectModule } from '@angular/material/select'
 
 import { InstituteRoutingModule } from './institute-routing.module';
 import { AllInstitutesComponent } from './pages/all-institutes/all-institutes.component';
@@ -41,7 +42,8 @@ import { EditComponent } from './pages/edit/edit.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialFileInputModule
+    MaterialFileInputModule,
+    MatSelectModule
   ]
 })
 export class InstituteModule { }

@@ -3,21 +3,21 @@ import { Router } from '@angular/router';
 import { SignInService } from '../../SignInService/sign-in.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-header-logout',
+  templateUrl: './header-logout.component.html',
+  styleUrls: ['./header-logout.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderLogoutComponent implements OnInit {
 
-  LoggedIn: boolean;
+  // LoggedIn: boolean;
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   onLogout() {
-    this.LoggedIn = SignInService.isLoggedIn;
+    //this.LoggedIn = SignInService.isLoggedIn;
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }

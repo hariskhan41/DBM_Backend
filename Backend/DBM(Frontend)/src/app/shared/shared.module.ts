@@ -19,10 +19,11 @@ import { SharedRoutingModule } from './shared-routing.module';
 // import { HeaderComponent } from './layout/header/header.component';
 // import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent, FooterComponent } from './layout';
+import { HeaderLogoutComponent } from './layout/header-logout/header-logout.component';
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, HeaderLogoutComponent],
   exports: [
     HeaderComponent,
     FooterComponent

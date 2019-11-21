@@ -13,7 +13,7 @@ export class SignUpService {
   constructor(private http:HttpClient) { }
 
   postAddUser(formData: SignUp){
-    return this.http.post(this.rootURL + '/Users', formData);
+    return this.http.post(this.rootURL + '/Users/Register', formData);
   }
 
   getInstitutes(){

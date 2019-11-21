@@ -1,10 +1,11 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DBM.Models
 {
-    public partial class DBMContext : DbContext
+    public partial class DBMContext : IdentityDbContext
     {
         public DBMContext()
         {
@@ -15,6 +16,7 @@ namespace DBM.Models
         {
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public virtual DbSet<Announcement> Announcement { get; set; }
         public virtual DbSet<AssignmentSubmission> AssignmentSubmission { get; set; }
         public virtual DbSet<Assignments> Assignments { get; set; }
@@ -41,6 +43,7 @@ namespace DBM.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
             modelBuilder.Entity<Announcement>(entity =>
