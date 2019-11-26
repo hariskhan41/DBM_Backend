@@ -1,4 +1,5 @@
 import { Component, OnInit ,VERSION } from '@angular/core';
+import { SignInService } from '../shared/SignInService/sign-in.service';
 
 @Component({
   selector: 'app-main-page',
@@ -7,12 +8,18 @@ import { Component, OnInit ,VERSION } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  // LoggedIn: boolean;
+
+  constructor() {
+    // this.LoggedIn = SignInService.isLoggedIn;
+    // alert(this.LoggedIn);
+   }
 
   ngVersion: string = VERSION.full;
   matVersion: string = '5.1.0';
   breakpoint: number;
   ngOnInit() {
+    
     if (window.innerWidth <= 500)
      {
        this.breakpoint = 1;

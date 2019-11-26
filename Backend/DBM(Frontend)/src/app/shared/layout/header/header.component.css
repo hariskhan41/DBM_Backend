@@ -46,4 +46,9 @@
           .right{
             float: right;
           }
+
+          .space {
+            flex: 2 1 auto;
+            padding: 200px;
+          }
           

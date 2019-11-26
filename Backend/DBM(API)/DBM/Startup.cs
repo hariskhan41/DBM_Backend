@@ -38,6 +38,7 @@ namespace DBM
             services.AddDbContext<DBMContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DBMContext>();
 
             services.Configure<IdentityOptions>(options =>

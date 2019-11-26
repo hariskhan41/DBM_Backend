@@ -8,18 +8,32 @@ import { SignInService } from '../../SignInService/sign-in.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  userDetails;
 
-  LoggedIn: boolean;
+  // LoggedIn: boolean;
 
-  constructor(private router:Router) { }
+  constructor(private router: Router, private service: SignInService) { }
 
   ngOnInit() {
+    this.service.getUserProfile().subscribe(
+      res => {
+        this.userDetails = res;
+        console.log(this.userDetails);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  loggedIn() {
+    return !!localStorage.getItem('token')
   }
 
   onLogout() {
-    this.LoggedIn = SignInService.isLoggedIn;
+    // this.LoggedIn = SignInService.isLoggedIn;
     localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    this.router.navigate(['']);
   }
 
 }

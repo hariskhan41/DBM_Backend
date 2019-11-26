@@ -34,5 +34,57 @@ namespace DBM.Controllers
                 user.UserName
             };
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("ForAdmin")]
+        public string GetForAdmin()
+        {
+            return "web method for Admin";
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Teacher")]
+        [Route("ForTeacher")]
+        public string GetForTeacher()
+        {
+            return "web method for Teacher";
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Student")]
+        [Route("ForStudent")]
+        public string GetForStudent()
+        {
+            return "web method for Student";
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin,Teacher")]
+        [Route("ForAdminOrTeacher")]
+        public string GetForAdminOrTeacher()
+        {
+            return "web method for Admin or Teacher";
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Teacher,Student")]
+        [Route("ForTeacherOrStudent")]
+        public string GetForTeacherOrStudent()
+        {
+            return "web method for Teacher or Student";
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin,Teacher,Student")]
+        [Route("ForAdminOrTeacherOrStudent")]
+        public string GetForAdminOrTeacherOrStudent()
+        {
+            return "web method for Admin or Teacher or Student";
+        }
+
     }
 }

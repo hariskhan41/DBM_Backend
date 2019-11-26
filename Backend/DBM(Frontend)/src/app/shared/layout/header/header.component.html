@@ -36,19 +36,24 @@
       <h1>Digital Board Marker</h1>
       <span class="menu-spacer"></span>
       <div>
-        <!-- <a mat-button [routerLink]="'/AllInstitutes'"> Institutes </a>
-        <a mat-button [routerLink]="'/AllTeacher'"> Teachers </a>
-        <a mat-button [routerLink]="'/permission/permissionManagement'"> Permission </a>
-        <a mat-button [routerLink]="'/course/AllCourses'"> Courses </a> -->
-        <a mat-button [routerLink]="'/signup'"> Register </a>
-        <a mat-button [routerLink]="'/login'"> Login </a>
+        <a mat-button *ngIf="service.loggedIn()" [routerLink]="'/AllInstitutes'"> Institutes </a>
+        <a mat-button *ngIf="service.loggedIn()" [routerLink]="'/AllTeacher'"> Teachers </a>
+        <a mat-button *ngIf="service.loggedIn()" [routerLink]="'/permission/permissionManagement'"> Permission </a>
+        <a mat-button *ngIf="service.loggedIn()" [routerLink]="'/course/AllCourses'"> Courses </a>
+        <a mat-button *ngIf="!service.loggedIn()" [routerLink]="'/signup'"> Register </a>
+        <a mat-button *ngIf="!service.loggedIn()" [routerLink]="'/login'"> Login </a>
+        <!-- <a mat-button *ngIf="service.loggedIn()" (click)="onLogout()"> Logout </a> -->
         <!-- <a mat-button [routerLink]="'/create-activity'"> Create Activity </a> -->
 
 
       </div>
-      <!-- &nbsp; &nbsp; &nbsp; -->
+      &nbsp; &nbsp; &nbsp;
       <!-- <div><a mat-button (click)="onLogout()"> Logout </a></div> -->
+      <div class="space">
+        <!-- <span></span> -->
+        <a mat-button *ngIf="userDetails"> {{userDetails.email}} </a>
+        <a mat-button *ngIf="service.loggedIn()" (click)="onLogout()"> Logout </a>
+      </div>
     </mat-toolbar-row>
   </mat-toolbar>
 </div>
-

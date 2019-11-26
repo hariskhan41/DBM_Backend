@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 
@@ -29,8 +29,10 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { AssignmentsModule } from './assignments/assignments.module';
 import { TeacherModule } from './teacher/teacher.module';
 import { InstituteModule } from './institute/institute.module';
+import { ForbiddenPanelModule } from './forbidden-panel/forbidden-panel.module'
 import { AddInstituteServiceService } from './shared/InstituteService/add-institute-service.service';
 import { SignInService } from './shared/SignInService/sign-in.service';
+import { AuthInterceptor } from './shared/auth/auth.interceptor';
 
 
 
@@ -45,6 +47,7 @@ import { SignInService } from './shared/SignInService/sign-in.service';
     AppComponent,
 
     MainPageComponent,
+
 
   ],
   imports: [
@@ -67,12 +70,17 @@ import { SignInService } from './shared/SignInService/sign-in.service';
     AssignmentsModule,
     TeacherModule,
     InstituteModule,
+    ForbiddenPanelModule,
     HttpClientModule,
     FormsModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule
   ],
-  providers: [AddInstituteServiceService, SignInService],
+  providers: [AddInstituteServiceService, SignInService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
