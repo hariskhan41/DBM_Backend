@@ -13,9 +13,12 @@ namespace DBM.ViewModels
 
         public int InstituteId { get; set; }
 
-        public int TeacherId { get; set; }
+        //public int TeacherId { get; set; }
 
         public string CreatedBy { get; set; }
+
+        public string CourseSession { get; set; }
+        public string CourseSemester { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

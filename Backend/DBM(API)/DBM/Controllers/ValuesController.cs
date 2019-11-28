@@ -12,10 +12,10 @@ namespace DBM.Controllers
     public class ValuesController : ControllerBase
     {
 
-        public ValuesController(DBMContext context)
-        {
+        //public ValuesController(DBMContext context)
+        //{
 
-        }
+        //}
 
         // GET api/values
         [HttpGet]

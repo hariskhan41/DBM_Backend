@@ -13,9 +13,11 @@ namespace DBM.Models
         public DateTime UpdatedOn { get; set; }
         public int UpdatedBy { get; set; }
         public int CourseId { get; set; }
+        public int? Lectureid { get; set; }
 
         public virtual Courses Course { get; set; }
         public virtual Users CreatedByNavigation { get; set; }
+        public virtual Lectures Lecture { get; set; }
         public virtual Users UpdatedByNavigation { get; set; }
     }
 }

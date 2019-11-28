@@ -35,11 +35,11 @@ namespace DBM
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<DBMContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            services.AddDbContext<DigitalBoardMarkerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<DBMContext>();
+                .AddEntityFrameworkStores<DigitalBoardMarkerContext>();
 
             services.Configure<IdentityOptions>(options =>
             {

@@ -33,16 +33,17 @@ namespace DBM.ViewModels
 
         public string InstituteName { get; set; }
 
-        //public int LoginStatus { get; set; }
+        public int LoginStatus { get; set; }
 
-        //public int ActiveStatue { get; set; }
+        public int ActiveStatue { get; set; }
 
-        //public int InstituteId { get; set; }
+        public int InstituteId { get; set; }
 
 
         public bool EmailAlreadyExists(string email, string designation)
         {
-            DBMContext db = new DBMContext();
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            //DBMContext db = new DBMContext();
             Users u = db.Users.Where(u1 => (u1.Email == email && u1.Designation == designation)).FirstOrDefault();
             if (u != null)
             {

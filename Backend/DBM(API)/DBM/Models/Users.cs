@@ -13,12 +13,14 @@ namespace DBM.Models
             AssignmentsUpdatedByNavigation = new HashSet<Assignments>();
             CourseContentAddedByNavigation = new HashSet<CourseContent>();
             CourseContentUpdatedByNavigation = new HashSet<CourseContent>();
-            CoursesCreatedByNavigation = new HashSet<Courses>();
-            CoursesTeacher = new HashSet<Courses>();
-            CoursesUpdatedByNavigation = new HashSet<Courses>();
+            CourseInfoCreatedByNavigation = new HashSet<CourseInfo>();
+            CourseInfoUpdatedByNavigation = new HashSet<CourseInfo>();
             NotesCreatedByNavigation = new HashSet<Notes>();
             NotesUpdatedByNavigation = new HashSet<Notes>();
+            StudentGroup = new HashSet<StudentGroup>();
+            TeachersAssignedCourses = new HashSet<TeachersAssignedCourses>();
             UserAssignedGroups = new HashSet<UserAssignedGroups>();
+            UserCourseMtm = new HashSet<UserCourseMtm>();
         }
 
         public int Id { get; set; }
@@ -40,11 +42,13 @@ namespace DBM.Models
         public virtual ICollection<Assignments> AssignmentsUpdatedByNavigation { get; set; }
         public virtual ICollection<CourseContent> CourseContentAddedByNavigation { get; set; }
         public virtual ICollection<CourseContent> CourseContentUpdatedByNavigation { get; set; }
-        public virtual ICollection<Courses> CoursesCreatedByNavigation { get; set; }
-        public virtual ICollection<Courses> CoursesTeacher { get; set; }
-        public virtual ICollection<Courses> CoursesUpdatedByNavigation { get; set; }
+        public virtual ICollection<CourseInfo> CourseInfoCreatedByNavigation { get; set; }
+        public virtual ICollection<CourseInfo> CourseInfoUpdatedByNavigation { get; set; }
         public virtual ICollection<Notes> NotesCreatedByNavigation { get; set; }
         public virtual ICollection<Notes> NotesUpdatedByNavigation { get; set; }
+        public virtual ICollection<StudentGroup> StudentGroup { get; set; }
+        public virtual ICollection<TeachersAssignedCourses> TeachersAssignedCourses { get; set; }
         public virtual ICollection<UserAssignedGroups> UserAssignedGroups { get; set; }
+        public virtual ICollection<UserCourseMtm> UserCourseMtm { get; set; }
     }
 }

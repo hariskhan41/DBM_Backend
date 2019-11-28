@@ -18,7 +18,7 @@ namespace DBM.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-        
+
         public string Cnic { get; set; }
 
         public string Designation { get; set; }
@@ -27,18 +27,18 @@ namespace DBM.Models
 
         public string InstituteName { get; set; }
 
-        public bool EmailAlreadyExists(string email, string designation)
-        {
-            DBMContext db = new DBMContext();
-            Users u = db.Users.Where(u1 => (u1.Email == email && u1.Designation == designation)).FirstOrDefault();
-            if (u != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //public bool EmailAlreadyExists(string email, string designation)
+        //{
+        //    DBMContext db = new DBMContext();
+        //    Users u = db.Users.Where(u1 => (u1.Email == email && u1.Designation == designation)).FirstOrDefault();
+        //    if (u != null)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
     }
 }
