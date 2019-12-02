@@ -16,12 +16,39 @@ namespace DBM.Controllers
     public class CourseController : ControllerBase
     {
         //// GET: api/Course
-        //[HttpGet]
-        //public IEnumerable<Courses> Get()
-        //{
-        //    DBMContext db = new DBMContext();
-        //    return db.Courses.ToList();
-        //}
+        [HttpGet]
+        public IEnumerable<CourseViewModel> Get(int Year)
+        {
+            //DBMContext db = new DBMContext();
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            List<CourseViewModel> courseLst = new List<CourseViewModel>();
+
+            foreach (Courses c in db.Courses)
+            {
+                foreach(CourseInfo i in db.CourseInfo)
+                {
+                    if(i.Courseid == c.Id && i.CourseYear == Year)
+                    {
+                        CourseViewModel v = new CourseViewModel();
+                        v.CourseSemester = i.CourseSemester;
+                        v.CourseSession = i.CourseYear.ToString();
+                        string frstName = db.Users.Where(b => b.Id == i.CreatedBy).FirstOrDefault().FirstName;
+                        string lastName = db.Users.Where(b => b.Id == i.CreatedBy).FirstOrDefault().LastName;
+                        v.CreatedBy = frstName + " " + lastName;
+                        string UpdatedFirst = db.Users.Where(b => b.Id == i.UpdatedBy).FirstOrDefault().FirstName;
+                        string UpdatedLast = db.Users.Where(b => b.Id == i.UpdatedBy).FirstOrDefault().LastName;
+                        v.UpdatedBy = UpdatedFirst + " " + UpdatedLast;
+                        v.Name = c.Name;
+                        v.CourseCode = c.CourseCode;
+                        courseLst.Add(v);
+                        break;
+
+
+                    }
+                }
+            }
+            return courseLst.ToList();
+        }
 
         // GET: api/Course/5
 

@@ -56,3 +56,4 @@ Backend/DBM(API)/DBM/Models/Courses.cs
 Backend/DBM(API)/DBM/Models/AssignmentSubmission.cs
 Backend/DBM(API)/DBM/Models/Assignments.cs
 Backend/DBM(API)/DBM/Migrations/
+Backend/DBM(API)/DBM/Models/DBMContext.cs

@@ -22,7 +22,7 @@ namespace DBM.ViewModels
 
         public DateTime CreatedOn { get; set; }
 
-        public int UpdatedBy { get; set; }
+        public string UpdatedBy { get; set; }
         public string UpdatedOn { get; set; }
 
     }
