@@ -31,18 +31,18 @@ namespace DBM.Controllers
             _appSettings = appSettings.Value;
         }
         // GET: api/Users
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         //// GET: api/Users/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //[HttpGet("{id}", Name = "Get")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         //// POST: api/Users
 
@@ -148,18 +148,18 @@ namespace DBM.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        public List<string> getInstitutes()
-        {
-            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
-            // DBMContext db = new DBMContext();
-            List<string> s = new List<string>();
-            foreach (Institute i in db.Institute)
-            {
-                s.Add(i.Name);
-            }
-            return s;
-        }
+        //[HttpGet]
+        //public List<string> getInstitutes()
+        //{
+        //    DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+        //    // DBMContext db = new DBMContext();
+        //    List<string> s = new List<string>();
+        //    foreach (Institute i in db.Institute)
+        //    {
+        //        s.Add(i.Name);
+        //    }
+        //    return s;
+        //}
 
         [HttpGet]
         public IEnumerable<Institute> get()

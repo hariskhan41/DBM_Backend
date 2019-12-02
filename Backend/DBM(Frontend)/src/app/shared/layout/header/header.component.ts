@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     // this.LoggedIn = SignInService.isLoggedIn;
+    this.userDetails = null;
     localStorage.removeItem('token');
     this.router.navigate(['']);
   }

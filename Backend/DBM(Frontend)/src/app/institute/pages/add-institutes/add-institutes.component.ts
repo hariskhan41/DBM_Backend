@@ -19,7 +19,14 @@ export class AddInstitutesComponent implements OnInit {
 
 
   ngOnInit() {
-    this.resetForm();
+    // if (this.service.formData == null){
+    //   this.resetForm();
+    // }
+    if (this.service.editFlag == false)
+    {
+      this.resetForm();
+    }
+    //console.log(this.service.formData);
   }
 
   resetForm(form?: NgForm) {
@@ -27,12 +34,39 @@ export class AddInstitutesComponent implements OnInit {
       form.resetForm();
     }
     this.service.formData = {
-      InstituteName: '',
+      id: 0,
+      instituteName: '',
     }
   }
 
   onSubmit(form: NgForm) {
-    this.service.postAddInstitute(form.value).subscribe(
+    //console.log(this.service.formData);
+    console.log(this.service.formData.id);
+    if (this.service.formData.id == 0) {
+      this.insertRecord(form);
+    }
+    else {
+      this.service.editFlag = false;
+      this.updateRecord(form);
+    }
+  }
+
+
+  insertRecord(form: NgForm) {
+    this.service.postAddInstitute().subscribe(
+      res => {
+        this.resetForm(form);
+      },
+      err => {
+        console.log(err);
+        alert(err.error["UniqueInstituteName"]);
+        this.InstituteNameError = err.error["UniqueInstituteName"];
+      }
+    );
+  }
+
+  updateRecord(form: NgForm) {
+    this.service.putAddInstitute().subscribe(
       res => {
         this.resetForm(form);
       },
@@ -45,6 +79,6 @@ export class AddInstitutesComponent implements OnInit {
   }
 
 
-
-
 }
+
+

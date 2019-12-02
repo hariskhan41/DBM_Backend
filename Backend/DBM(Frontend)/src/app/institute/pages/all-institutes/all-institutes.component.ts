@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { AddInstituteServiceService } from 'src/app/shared/InstituteService/add-institute-service.service';
 import { AddInstituteModelClass } from 'src/app/shared/InstituteModelClass/add-institute-model-class.model';
+import { Router } from '@angular/router';
 
 export interface Designation {
   value: string;
@@ -56,7 +57,7 @@ export class AllInstitutesComponent implements OnInit {
     { value: 'Admin', viewValue: 'Admin' }
   ];
 
-  constructor(private service: AddInstituteServiceService) {
+  constructor(private service: AddInstituteServiceService, private router: Router) {
 
   }
 
@@ -65,6 +66,12 @@ export class AllInstitutesComponent implements OnInit {
   ngOnInit() {
     this.service.getInstitutesList();
     this.lst = this.service.list;
+  }
+
+  editInstitute(I: AddInstituteModelClass) {
+    this.service.formData = I;
+    this.service.editFlag = true;
+    this.router.navigate(['/AddInstitutes']);
   }
 
   dataSource = this.service.list;

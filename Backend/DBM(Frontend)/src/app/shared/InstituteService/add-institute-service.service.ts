@@ -9,11 +9,16 @@ export class AddInstituteServiceService {
   formData = new AddInstituteModelClass();
   readonly rootURL = 'http://localhost:3845/api';
   list: AddInstituteModelClass[];
+  editFlag: boolean;
 
   constructor(private http: HttpClient) { }
 
-  postAddInstitute(formData: AddInstituteModelClass) {
-    return this.http.post(this.rootURL + '/Institute', formData);
+  postAddInstitute() {
+    return this.http.post(this.rootURL + '/Institute', this.formData);
+  }
+
+  putAddInstitute() {
+    return this.http.put(this.rootURL + '/Institute/' + this.formData.id, this.formData);
   }
 
   getInstitutesList() {
@@ -21,7 +26,7 @@ export class AddInstituteServiceService {
     .toPromise()
     .then(res => {
       this.list = res as AddInstituteModelClass[];
-      console.log(this.list);
+      console.log(res);
     });
   }
 

@@ -7,9 +7,24 @@ import { AuthGuard } from '../shared/auth/auth.guard';
 
 
 const routes: Routes = [
-  { path: 'AllInstitutes', component: AllInstitutesComponent, canActivate: [AuthGuard], data: {permittedRoles: ['Admin']} },
-  { path: 'AddInstitutes', component: AddInstitutesComponent, canActivate: [AuthGuard] },
-  { path: 'Institute/Edit', component: EditComponent, canActivate: [AuthGuard] }
+  { 
+    path: 'AllInstitutes', 
+    component: AllInstitutesComponent, 
+    canActivate: [AuthGuard], 
+    data: { permittedRoles: ['SuperAdmin'] } 
+  },
+  { 
+    path: 'AddInstitutes', 
+    component: AddInstitutesComponent, 
+    canActivate: [AuthGuard], 
+    data: { prtmittedRoles: ['SuperAdmin'] } 
+  },
+  { 
+    path: 'Institute/Edit', 
+    component: EditComponent, 
+    canActivate: [AuthGuard],
+    data: { prtmittedRoles: ['SuperAdmin'] } 
+  }
 ];
 
 @NgModule({
