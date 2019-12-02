@@ -80,7 +80,7 @@ namespace DBM.Controllers
         {
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             //DBMContext db = new DBMContext();
-            int courseId = db.CourseInfo.Where(b => b.Id == id).FirstOrDefault().Courseid;
+            int? courseId = db.CourseInfo.Where(b => b.Id == id).FirstOrDefault().Courseid;
             if (db.Courses.Any(b => b.Name == course.Name && b.CourseCode == course.CourseCode))
             {
                 int year = db.CourseInfo.Where(b => b.Courseid == db.Courses.Where(r => r.Name == course.Name).FirstOrDefault().Id).FirstOrDefault().CourseYear;

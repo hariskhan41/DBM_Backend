@@ -128,7 +128,8 @@ export class SignupComponent implements OnInit {
   designations: Designation[] = [
     { value: 'Teacher', viewValue: 'Teacher' },
     { value: 'Student', viewValue: 'Student' },
-    { value: 'Admin', viewValue: 'Admin' }
+    { value: 'Admin', viewValue: 'Admin' },
+    // { value: 'SuperAdmin', viewValue: 'Super Admin' }
   ];
 
   // Institutes: Institute[] = [

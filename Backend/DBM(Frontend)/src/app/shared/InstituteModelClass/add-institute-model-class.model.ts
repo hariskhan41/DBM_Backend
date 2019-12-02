@@ -1,3 +1,4 @@
 export class AddInstituteModelClass {
-    InstituteName: string;
+    id: number;
+    instituteName: string;
 }

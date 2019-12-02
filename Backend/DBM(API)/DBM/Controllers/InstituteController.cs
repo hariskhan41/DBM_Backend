@@ -15,7 +15,7 @@ namespace DBM.Controllers
     {
         // GET: api/Institute
         [HttpGet]
-        public IEnumerable<InstitutesViewModel> Get()
+        public List<InstitutesViewModel> Get()
         {
             //List<Institute> institutes = new List<Institute>();
             //DBMContext db = new DBMContext();
@@ -28,7 +28,7 @@ namespace DBM.Controllers
             foreach (Institute i in db.Institute)
             {
                 InstitutesViewModel ins = new InstitutesViewModel();
-
+                ins.Id = i.Id;
                 ins.InstituteName = i.Name;
                 lstInstitutes.Add(ins);
             }
@@ -69,10 +69,13 @@ namespace DBM.Controllers
         {
             //DBMContext db = new DBMContext();
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
-            if (db.Institute.Any(b => b.Name == institutes.InstituteName))
+            foreach (Institute i in db.Institute)
             {
-                ModelState.AddModelError("", "This Institute already exists");
-                return BadRequest(ModelState);
+                if (i.Name == institutes.InstituteName && i.Id != id)
+                {
+                    ModelState.AddModelError("UniqueInstituteName", "This Institute already exists");
+                    return BadRequest(ModelState);
+                }
             }
             db.Institute.Where(b => b.Id == id).FirstOrDefault().Name = institutes.InstituteName;
             db.SaveChanges();
