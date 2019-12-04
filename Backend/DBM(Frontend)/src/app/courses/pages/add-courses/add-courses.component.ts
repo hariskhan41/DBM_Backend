@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VERSION } from '@angular/platform-browser-dynamic';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { CoursesService } from 'src/app/shared/CoursesService/courses.service';
+import { SignInService } from 'src/app/shared/SignInService/sign-in.service';
 
 
 @Component({
@@ -10,16 +12,86 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AddCoursesComponent implements OnInit {
 
-
-  form: FormGroup;
-  constructor(private fb: FormBuilder) {
+  userDetails;
+  //form: FormGroup;
+  constructor(private service: CoursesService, private Service2: SignInService) {
 
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      file: []
-    })
+    // this.form = this.fb.group({
+    //   file: []
+    // })
+    if (this.service.editFlag == false) {
+      this.resetForm();
+    }
+
+    this.Service2.getUserProfile().subscribe(
+      res => {
+        //console.log(res);
+        this.userDetails = res;
+        //alert("res");
+      },
+      err => {
+        console.log(err);
+        //alert("err");
+      }
+    );
+  }
+
+  resetForm(form?: NgForm) {
+    if (form != null)
+      form.resetForm();
+    this.service.formData = {
+      id: 0,
+      name: '',
+      email: '',
+      courseCode: '',
+      courseSession: '',
+      courseSemester: '',
+      userId: 0
+    }
+  }
+
+  onSubmit(form: NgForm) {
+
+    //alert(this.userDetails.email);
+
+
+    // console.log(form.value);
+    if (this.service.formData.id == 0) {
+      this.insertRecord(form);
+    }
+    else {
+      this.updateRecord(form);
+    }
+
+  }
+
+  updateRecord(form: NgForm) {
+    form.value.email = this.userDetails.email;
+    this.service.putAddCourse(form.value).subscribe(
+      res => {
+        this.resetForm(form);
+      },
+      err => {
+        //alert(err);
+        console.log(err);
+      }
+    )
+  }
+
+  insertRecord(form: NgForm) {
+    form.value.Email = this.userDetails.email;
+    this.service.postAddCourse(form.value).subscribe(
+      res => {
+        this.resetForm(form);
+      },
+      err => {
+        //alert(err);
+        console.log(err);
+      }
+    )
   }
 
 }

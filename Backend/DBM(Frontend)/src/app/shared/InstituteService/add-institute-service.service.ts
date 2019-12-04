@@ -9,7 +9,7 @@ export class AddInstituteServiceService {
   formData = new AddInstituteModelClass();
   readonly rootURL = 'http://localhost:3845/api';
   list: AddInstituteModelClass[];
-  editFlag: boolean;
+  editFlag: boolean = false;
 
   constructor(private http: HttpClient) { }
 

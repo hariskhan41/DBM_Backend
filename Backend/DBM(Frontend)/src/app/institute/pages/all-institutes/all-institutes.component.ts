@@ -64,6 +64,7 @@ export class AllInstitutesComponent implements OnInit {
   lst: AddInstituteModelClass[];
 
   ngOnInit() {
+    this.service.editFlag = false;
     this.service.getInstitutesList();
     this.lst = this.service.list;
   }

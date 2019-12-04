@@ -3,6 +3,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { HostBinding } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 export interface ExampleTab {
   label: string;
@@ -22,7 +23,7 @@ export class CourseDashboardComponent implements OnInit {
 
   asyncTabs: Observable<ExampleTab[]>;
 
-  constructor() {
+  constructor( private router:Router) {
     this.asyncTabs = new Observable((observer: Observer<ExampleTab[]>) => {
       setTimeout(() => {
         observer.next([
@@ -42,6 +43,11 @@ export class CourseDashboardComponent implements OnInit {
   onResize(event) {
     this.breakpoint = (event.target.innerWidth <= 800) ? 1 : 1;
     // this.breakpoint = (event.target.innerWidth <= 500) ? 1 : 4;
+  }
+
+  ViewRequests()
+  {
+    this.router.navigate(['/EnrollmentRequests']);
   }
 
 }

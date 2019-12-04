@@ -10,6 +10,7 @@ namespace DBM.Models
             Announcement = new HashSet<Announcement>();
             Assignments = new HashSet<Assignments>();
             CourseContent = new HashSet<CourseContent>();
+            CourseEnrollment = new HashSet<CourseEnrollment>();
             CourseInfo = new HashSet<CourseInfo>();
             InverseParentCourse = new HashSet<Courses>();
             Lectures = new HashSet<Lectures>();
@@ -30,6 +31,7 @@ namespace DBM.Models
         public virtual ICollection<Announcement> Announcement { get; set; }
         public virtual ICollection<Assignments> Assignments { get; set; }
         public virtual ICollection<CourseContent> CourseContent { get; set; }
+        public virtual ICollection<CourseEnrollment> CourseEnrollment { get; set; }
         public virtual ICollection<CourseInfo> CourseInfo { get; set; }
         public virtual ICollection<Courses> InverseParentCourse { get; set; }
         public virtual ICollection<Lectures> Lectures { get; set; }

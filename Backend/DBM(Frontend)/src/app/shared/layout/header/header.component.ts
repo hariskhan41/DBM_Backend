@@ -16,8 +16,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.service.getUserProfile().subscribe(
-      res => {
+      (res:any) => {
         this.userDetails = res;
+        localStorage.setItem('Id', res.tempId);
         console.log(this.userDetails);
       },
       err => {
@@ -34,6 +35,7 @@ export class HeaderComponent implements OnInit {
     // this.LoggedIn = SignInService.isLoggedIn;
     this.userDetails = null;
     localStorage.removeItem('token');
+    localStorage.removeItem('Id');
     this.router.navigate(['']);
   }
 

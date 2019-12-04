@@ -29,6 +29,10 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select'
+
+import { AssignCourseComponent } from './pages/assign-course/assign-course.component';
+import { EnrollmentRequestsComponent } from './pages/enrollment-requests/enrollment-requests.component';
 
 
 
@@ -46,7 +50,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     AddCoursesComponent,
     CourseDashboardComponent,
     AnnouncementsComponent,
-    LecturesComponent
+    LecturesComponent,
+    AssignCourseComponent,
+    EnrollmentRequestsComponent
   ],
   exports: [
     CoursesComponent,
@@ -77,7 +83,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatInputModule,
     MatFileUploadModule,
     OverlayModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ]
 })
 export class CoursesModule {

@@ -13,6 +13,7 @@ namespace DBM.Models
             AssignmentsUpdatedByNavigation = new HashSet<Assignments>();
             CourseContentAddedByNavigation = new HashSet<CourseContent>();
             CourseContentUpdatedByNavigation = new HashSet<CourseContent>();
+            CourseEnrollment = new HashSet<CourseEnrollment>();
             CourseInfoCreatedByNavigation = new HashSet<CourseInfo>();
             CourseInfoUpdatedByNavigation = new HashSet<CourseInfo>();
             NotesCreatedByNavigation = new HashSet<Notes>();
@@ -42,6 +43,7 @@ namespace DBM.Models
         public virtual ICollection<Assignments> AssignmentsUpdatedByNavigation { get; set; }
         public virtual ICollection<CourseContent> CourseContentAddedByNavigation { get; set; }
         public virtual ICollection<CourseContent> CourseContentUpdatedByNavigation { get; set; }
+        public virtual ICollection<CourseEnrollment> CourseEnrollment { get; set; }
         public virtual ICollection<CourseInfo> CourseInfoCreatedByNavigation { get; set; }
         public virtual ICollection<CourseInfo> CourseInfoUpdatedByNavigation { get; set; }
         public virtual ICollection<Notes> NotesCreatedByNavigation { get; set; }

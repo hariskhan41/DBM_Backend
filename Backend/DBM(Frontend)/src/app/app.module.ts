@@ -33,6 +33,7 @@ import { ForbiddenPanelModule } from './forbidden-panel/forbidden-panel.module'
 import { AddInstituteServiceService } from './shared/InstituteService/add-institute-service.service';
 import { SignInService } from './shared/SignInService/sign-in.service';
 import { AuthInterceptor } from './shared/auth/auth.interceptor';
+import { CoursesService } from './shared/CoursesService/courses.service';
 
 
 
@@ -76,7 +77,7 @@ import { AuthInterceptor } from './shared/auth/auth.interceptor';
     ToastrModule.forRoot(),
     ReactiveFormsModule
   ],
-  providers: [AddInstituteServiceService, SignInService, {
+  providers: [CoursesService, AddInstituteServiceService, SignInService, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

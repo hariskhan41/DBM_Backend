@@ -25,10 +25,14 @@ namespace DBM.Controllers
         [Authorize]
         public async Task<Object> GetUSerProfile()
         {
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
             var user = await _userManager.FindByIdAsync(userId);
+            int tempId = db.Users.Where(u => u.Email == user.Email).FirstOrDefault().Id;
+            //user.Id = Convert.ToString(tempId);
             return new
             {
+                tempId,
                 user.FullName,
                 user.Email,
                 user.UserName

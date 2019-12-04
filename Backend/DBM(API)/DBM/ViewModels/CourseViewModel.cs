@@ -7,9 +7,13 @@ namespace DBM.ViewModels
 {
     public class CourseViewModel
     {
-        public string Name { get; set; }
+        public int id { get; set; }
 
-        public string CourseCode { get; set; }
+        public string name { get; set; }
+
+        public string email { get; set; }
+
+        public string courseCode { get; set; }
 
         public int InstituteId { get; set; }
 
@@ -17,13 +21,16 @@ namespace DBM.ViewModels
 
         public string CreatedBy { get; set; }
 
-        public string CourseSession { get; set; }
-        public string CourseSemester { get; set; }
+        public string courseSession { get; set; }
+        public string courseSemester { get; set; }
 
         public DateTime CreatedOn { get; set; }
+        public string EnrollmentStatus { get; set; }
 
         public string UpdatedBy { get; set; }
         public string UpdatedOn { get; set; }
+
+        public int UserId { get; set; }
 
     }
 }

@@ -17,83 +17,122 @@ namespace DBM.Controllers
     {
         //// GET: api/Course
         [HttpGet]
-        public IEnumerable<CourseViewModel> Get(int Year)
+        [Route("GetAllCourses/{id}")]
+        public IEnumerable<CourseViewModel> Get(int id)
         {
             //DBMContext db = new DBMContext();
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             List<CourseViewModel> courseLst = new List<CourseViewModel>();
-
-            foreach (Courses c in db.Courses)
+            if(db.Users.Where(b=>b.Id == id).FirstOrDefault().Designation == "Admin")
             {
-                foreach(CourseInfo i in db.CourseInfo)
+                foreach (Courses c in db.Courses)
                 {
-                    if(i.Courseid == c.Id && i.CourseYear == Year)
+                    foreach (CourseInfo i in db.CourseInfo)
                     {
-                        CourseViewModel v = new CourseViewModel();
-                        v.CourseSemester = i.CourseSemester;
-                        v.CourseSession = i.CourseYear.ToString();
-                        string frstName = db.Users.Where(b => b.Id == i.CreatedBy).FirstOrDefault().FirstName;
-                        string lastName = db.Users.Where(b => b.Id == i.CreatedBy).FirstOrDefault().LastName;
-                        v.CreatedBy = frstName + " " + lastName;
-                        string UpdatedFirst = db.Users.Where(b => b.Id == i.UpdatedBy).FirstOrDefault().FirstName;
-                        string UpdatedLast = db.Users.Where(b => b.Id == i.UpdatedBy).FirstOrDefault().LastName;
-                        v.UpdatedBy = UpdatedFirst + " " + UpdatedLast;
-                        v.Name = c.Name;
-                        v.CourseCode = c.CourseCode;
-                        courseLst.Add(v);
-                        break;
-
-
+                        if (i.Courseid == c.Id && c.ParentCourseid == null && c.InstituteId == db.Users.Where(b=>b.Id == id).FirstOrDefault().InstituteId)
+                        {
+                            CourseViewModel v = new CourseViewModel();
+                            v.id = c.Id;
+                            //v.CourseSemester = i.CourseSemester;
+                            //v.CourseSession = i.CourseYear.ToString();
+                            //string frstName = db.Users.Where(b => b.Id == i.CreatedBy).FirstOrDefault().FirstName;
+                            //string lastName = db.Users.Where(b => b.Id == i.CreatedBy).FirstOrDefault().LastName;
+                            //v.CreatedBy = frstName + " " + lastName;
+                            //string UpdatedFirst = db.Users.Where(b => b.Id == i.UpdatedBy).FirstOrDefault().FirstName;
+                            //string UpdatedLast = db.Users.Where(b => b.Id == i.UpdatedBy).FirstOrDefault().LastName;
+                            //v.UpdatedBy = UpdatedFirst + " " + UpdatedLast;
+                            v.name = c.Name;
+                            v.courseCode = c.CourseCode;
+                            courseLst.Add(v);
+                            break;
+                        }
                     }
                 }
             }
             return courseLst.ToList();
         }
 
-        // GET: api/Course/5
-
-        private UserManager<ApplicationUser> _userManager;
-
-        public async Task<string> GetCurrentUserAsync()
+        [HttpGet("{id}")]
+        public IEnumerable<CourseViewModel> GetCoursesAssignedToTeacher(int id)
         {
-            string userId = User.Claims.First(c => c.Type == "UserID").Value;
-            var user = await _userManager.FindByIdAsync(userId);
-            return user.Email;
-
+            //DBMContext db = new DBMContext();
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            List<CourseViewModel> courseLst = new List<CourseViewModel>();
+            
+            if (db.Users.Where(u => u.Id == id).FirstOrDefault().Designation == "Teacher")
+            {
+                foreach (TeachersAssignedCourses ac in db.TeachersAssignedCourses)
+                {
+                    if (ac.UserId == id)
+                    {
+                        CourseViewModel c = new CourseViewModel();
+                        c.name = db.Courses.Where(c1 => c1.Id == ac.CourseId).FirstOrDefault().Name;
+                        c.courseCode = db.Courses.Where(c1 => c1.Id == ac.CourseId).FirstOrDefault().CourseCode;
+                        courseLst.Add(c);
+                    }
+                }
+                return courseLst.ToList();
+            }
+            else if (db.Users.Where(u => u.Id == id).FirstOrDefault().Designation == "Student")
+            {
+                foreach (Courses c in db.Courses)
+                {
+                    if(c.InstituteId == db.Users.Where(b=>b.Id == id).FirstOrDefault().InstituteId)
+                    {
+                        CourseViewModel cd= new CourseViewModel();
+                        cd.name = c.Name;
+                        cd.courseCode = c.CourseCode;
+                        courseLst.Add(cd);
+                    }
+                }
+            }
+            return courseLst;
+            
         }
+
+        [HttpPost]
+        [Route("PostGetAssignedTeacher")]
+        public void PostGetAssignedTeacher([FromBody] CourseViewModel course)
+        {
+            //return GetCoursesAssignedToTeacher(course.Email);
+        }
+
+
         // POST: api/Course
         [HttpPost]
+        [Route("AddCourse")]
         public IActionResult Post([FromBody] CourseViewModel course)
         {
 
             // DBMContext db = new DBMContext();
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             Courses c = new Courses();
-            if (db.Courses.Any(b => b.Name == course.Name && b.CourseCode == course.CourseCode))
+            if (db.Courses.Any(b => b.Name == course.name && b.CourseCode == course.courseCode))
             {
-                int year = db.CourseInfo.Where(b => b.Courseid == db.Courses.Where(r=> r.Name == course.Name).FirstOrDefault().Id).FirstOrDefault().CourseYear;
-                if (year == Int32.Parse(course.CourseSession))
+                int year = db.CourseInfo.Where(b => b.Courseid == db.Courses.Where(r=> r.Name == course.name).FirstOrDefault().Id).FirstOrDefault().CourseYear;
+                string semester = db.CourseInfo.Where(b => b.Courseid == db.Courses.Where(r => r.Name == course.name).FirstOrDefault().Id).FirstOrDefault().CourseSemester;
+                if (year == Int32.Parse(course.courseSession) && course.courseSemester == semester)
                 {
                     ModelState.AddModelError("", "Course already exists");
                     return BadRequest(ModelState);
                 }
             }
-            c.CourseCode = course.CourseCode;
-            c.Name = course.Name;
-            // c.InstituteId = db.Users.Where(b => b.Email == GetCurrentUserAsync().ToString()).FirstOrDefault().InstituteId;
-            c.InstituteId = 1;
+            c.CourseCode = course.courseCode;
+            c.Name = course.name;
+            c.InstituteId = db.Users.Where(b => b.Email == course.email).FirstOrDefault().InstituteId;
+            //c.InstituteId = 1;
             c.ParentCourseid = null;
             db.Courses.Add(c);
             db.SaveChanges();
             CourseInfo cd = new CourseInfo();
             cd.CreatedOn = DateTime.Now;
-            // cd.CreatedBy = db.Users.Where(b => b.Email == GetCurrentUserAsync().ToString()).FirstOrDefault().Id;
-            cd.CreatedBy = 1;
+            cd.CreatedBy = db.Users.Where(b => b.Email == course.email).FirstOrDefault().Id;
+            //cd.CreatedBy = 1;
             cd.UpdatedOn = DateTime.Now;
             cd.UpdatedBy = 1;
-            cd.CourseSemester = course.CourseSemester;
-            cd.CourseYear = Int32.Parse(course.CourseSession);
-            cd.Courseid = db.Courses.Where(b => b.Name == course.Name).FirstOrDefault().Id;
+            cd.CourseSemester = course.courseSemester;
+            cd.CourseYear = Int32.Parse(course.courseSession);
+            cd.Courseid = db.Courses.Where(b => b.Name == course.name).FirstOrDefault().Id;
             
             db.CourseInfo.Add(cd);
             db.SaveChanges();
@@ -107,26 +146,64 @@ namespace DBM.Controllers
         {
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             //DBMContext db = new DBMContext();
-            int? courseId = db.CourseInfo.Where(b => b.Id == id).FirstOrDefault().Courseid;
-            if (db.Courses.Any(b => b.Name == course.Name && b.CourseCode == course.CourseCode))
+            int? courseId = db.CourseInfo.Where(b => b.Courseid == id).FirstOrDefault().Courseid;
+            if (db.Courses.Any(b => b.Name == course.name && b.CourseCode == course.courseCode))
             {
-                int year = db.CourseInfo.Where(b => b.Courseid == db.Courses.Where(r => r.Name == course.Name).FirstOrDefault().Id).FirstOrDefault().CourseYear;
-                if (year == Int32.Parse(course.CourseSession))
+                int year = db.CourseInfo.Where(b => b.Courseid == db.Courses.Where(r => r.Name == course.name).FirstOrDefault().Id).FirstOrDefault().CourseYear;
+                if (year == Int32.Parse(course.courseSession))
                 {
                     ModelState.AddModelError("", "Course already exists");
                     return BadRequest(ModelState);
                 }
             }
-            db.Courses.Where(b => b.Id == courseId).SingleOrDefault().CourseCode = course.CourseCode;
-            db.Courses.Where(b => b.Id == courseId).SingleOrDefault().Name =course.Name;
-            db.CourseInfo.Where(b => b.Id == id).SingleOrDefault().UpdatedOn = DateTime.Now;
+            db.Courses.Where(b => b.Id == courseId).SingleOrDefault().CourseCode = course.courseCode;
+            db.Courses.Where(b => b.Id == courseId).SingleOrDefault().Name =course.name;
+            db.CourseInfo.Where(b => b.Courseid == courseId).SingleOrDefault().UpdatedOn = DateTime.Now;
           //  db.CourseInfo.Where(b => b.Id == id).SingleOrDefault().UpdatedBy = db.Users.Where(b => b.Email == GetCurrentUserAsync().ToString()).FirstOrDefault().Id
-            db.CourseInfo.Where(b => b.Id == id).SingleOrDefault().UpdatedBy = 1;
-            db.CourseInfo.Where(b => b.Id == id).SingleOrDefault().CourseSemester = course.CourseSemester;
-            db.CourseInfo.Where(b => b.Id == id).SingleOrDefault().CourseYear =Int32.Parse(course.CourseSession);
+            db.CourseInfo.Where(b => b.Courseid == courseId).SingleOrDefault().UpdatedBy = db.Users.Where(a => a.Email == course.email).FirstOrDefault().Id;
+            db.CourseInfo.Where(b => b.Courseid == courseId).SingleOrDefault().CourseSemester = course.courseSemester;
+            db.CourseInfo.Where(b => b.Courseid == courseId).SingleOrDefault().CourseYear =Int32.Parse(course.courseSession);
             db.SaveChanges();
             return Ok();
 
+        }
+
+        [HttpGet]
+        [Route("GetAllTeachers")]
+        public List<CourseViewModel> getAllTeachers()
+        {
+            List<CourseViewModel> t = new List<CourseViewModel>();
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            foreach(Users u in db.Users)
+            {
+                if(u.Designation == "Teacher")
+                {
+                    CourseViewModel c = new CourseViewModel();
+                    c.email = u.Email;
+                    t.Add(c);
+                }
+            }
+            return t;
+        }
+        
+
+        [HttpPost]
+        [Route("AssignTeacher")]
+        public IActionResult AssignedCoursesToTeacher([FromBody] CourseViewModel course)
+        {
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            TeachersAssignedCourses t = new TeachersAssignedCourses();
+            t.CourseId = db.Courses.Where(b => b.Name == course.name).FirstOrDefault().Id;
+            t.UserId = db.Users.Where(b => b.Email == course.email).FirstOrDefault().Id;
+            int k = db.TeachersAssignedCourses.Where(p => p.UserId == t.UserId).FirstOrDefault().CourseId;
+            if (db.TeachersAssignedCourses.Where(p => p.UserId == t.UserId).FirstOrDefault().CourseId == t.CourseId)
+            {
+                ModelState.AddModelError("", "Course already assigned to this teacher");
+                return BadRequest(ModelState);
+            }
+            db.Add(t);
+            db.SaveChanges();
+            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
