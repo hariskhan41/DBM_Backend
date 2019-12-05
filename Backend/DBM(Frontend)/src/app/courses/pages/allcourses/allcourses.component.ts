@@ -52,6 +52,10 @@ export class AllcoursesComponent implements OnInit {
       }
     );
 
+    alert("aa");
+
+    //this.Service2.getUserRole();
+
 
 
     this.service.getAssignedCourses();

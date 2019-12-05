@@ -6,16 +6,40 @@ import { AllcoursesComponent } from './pages/allcourses/allcourses.component';
 import { CourseDashboardComponent } from './pages/course-dashboard/course-dashboard.component';
 import { AssignCourseComponent } from './pages/assign-course/assign-course.component';
 import { EnrollmentRequestsComponent } from './pages/enrollment-requests/enrollment-requests.component';
+import { AuthGuard } from '../shared/auth/auth.guard';
 
 
 
 
 const routes: Routes = [
-  { path: 'AddCourse', component: AddCoursesComponent },
-  { path: 'AllCourses', component: AllcoursesComponent },
-  { path: 'AssignCourse', component: AssignCourseComponent },
-  { path: 'EnrollmentRequests', component: EnrollmentRequestsComponent },
-  { path: 'CourseDashboard', component: CourseDashboardComponent },
+  { 
+    path: 'AddCourse',
+    component: AddCoursesComponent,
+    canActivate: [AuthGuard], 
+    data: { permittedRoles: ['Admin'] }
+  },
+  {
+    path: 'AllCourses',
+    component: AllcoursesComponent,
+    canActivate: [AuthGuard], 
+    data: { permittedRoles: ['Admin', 'Teacher', 'Student'] }
+  },
+  {
+    path: 'AssignCourse',
+    component: AssignCourseComponent,
+    canActivate: [AuthGuard], 
+    data: { permittedRoles: ['Admin'] }
+  },
+  {
+    path: 'EnrollmentRequests',
+    component: EnrollmentRequestsComponent,
+    canActivate: [AuthGuard], 
+    data: { permittedRoles: ['Teacher'] }
+  },
+  {
+    path: 'CourseDashboard',
+    component: CourseDashboardComponent
+  },
 
   // { path: 'course', component: CoursesComponent, 
   //   children :[

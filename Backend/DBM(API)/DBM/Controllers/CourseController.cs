@@ -33,14 +33,14 @@ namespace DBM.Controllers
                         {
                             CourseViewModel v = new CourseViewModel();
                             v.id = c.Id;
-                            //v.CourseSemester = i.CourseSemester;
-                            //v.CourseSession = i.CourseYear.ToString();
-                            //string frstName = db.Users.Where(b => b.Id == i.CreatedBy).FirstOrDefault().FirstName;
-                            //string lastName = db.Users.Where(b => b.Id == i.CreatedBy).FirstOrDefault().LastName;
-                            //v.CreatedBy = frstName + " " + lastName;
-                            //string UpdatedFirst = db.Users.Where(b => b.Id == i.UpdatedBy).FirstOrDefault().FirstName;
-                            //string UpdatedLast = db.Users.Where(b => b.Id == i.UpdatedBy).FirstOrDefault().LastName;
-                            //v.UpdatedBy = UpdatedFirst + " " + UpdatedLast;
+                            v.courseSemester = i.CourseSemester;
+                            v.courseSession = i.CourseYear.ToString();
+                            string frstName = db.Users.Where(b => b.Id == i.CreatedBy).FirstOrDefault().FirstName;
+                            string lastName = db.Users.Where(b => b.Id == i.CreatedBy).FirstOrDefault().LastName;
+                            v.CreatedBy = frstName + " " + lastName;
+                            string UpdatedFirst = db.Users.Where(b => b.Id == i.UpdatedBy).FirstOrDefault().FirstName;
+                            string UpdatedLast = db.Users.Where(b => b.Id == i.UpdatedBy).FirstOrDefault().LastName;
+                            v.UpdatedBy = UpdatedFirst + " " + UpdatedLast;
                             v.name = c.Name;
                             v.courseCode = c.CourseCode;
                             courseLst.Add(v);
@@ -73,7 +73,7 @@ namespace DBM.Controllers
                 }
                 return courseLst.ToList();
             }
-            else if (db.Users.Where(u => u.Id == id).FirstOrDefault().Designation == "Student")
+            else if (db.Users.Where(u => u.Id == id).FirstOrDefault().Designation == "Student" || db.Users.Where(u => u.Id == id).FirstOrDefault().Designation == "Admin")
             {
                 foreach (Courses c in db.Courses)
                 {

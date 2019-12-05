@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { SignIn } from '../SignInModelClass/sign-in.model';
 import { element } from 'protractor';
+import { SignUp } from '../SignUpModelClass/sign-up.model';
 //import { httpClient } from "@angular/common/http";
 //import { HttpClient } from 'selenium-webdriver/http';
 
@@ -14,6 +15,9 @@ export class SignInService {
   formData: SignIn;
   readonly rootURL = 'http://localhost:3845/api';
   public static isLoggedIn = false;
+  lstTemp: SignUp[];
+  designation: string;
+  
 
   constructor(private http: HttpClient) { }
 
@@ -27,7 +31,27 @@ export class SignInService {
 
   getUserProfile() {
 
-    return this.http.get(this.rootURL + '/UserProfile');
+    return this.http.get(this.rootURL + '/UserProfile/GetUserProfile');
+  }
+
+  getUserRole(id: string) {
+    
+    this.http.get(this.rootURL + '/UserProfile/RoleDetails/' + id).toPromise().then(
+      (res:any) => {
+        this.lstTemp = res as SignUp[];
+        console.log(this.designation=this.lstTemp[0]['designation']);
+        // alert("stop");
+      }
+    );
+  }
+
+  checkAdmin() {
+    if (this.designation == 'Admin') {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   roleMatch(allowedRoles): boolean {

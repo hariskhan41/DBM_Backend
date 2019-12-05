@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
 
   //form: FormGroup;
-  constructor(private service: SignInService, private router: Router, private toastr:ToastrService) {
+  constructor(private service: SignInService, private router: Router, private toastr: ToastrService) {
 
   }
 
@@ -26,36 +26,32 @@ export class LoginComponent implements OnInit {
     // })
   }
 
-  resetForm(form?: NgForm)
-  {
-    if (form != null)
-    {
+  resetForm(form?: NgForm) {
+    if (form != null) {
       form.resetForm();
     }
-    
+
     this.service.formData = {
       Email: '',
       Password: ''
     }
   }
 
-  onSubmit(form: NgForm)
-  {
+  onSubmit(form: NgForm) {
     this.service.postLogin(form.value).subscribe(
-      (res:any) => {
+      (res: any) => {
         SignInService.isLoggedIn = true;
         this.resetForm(form);
         localStorage.setItem('token', res.token);
+        localStorage.setItem('Id', res.id);
         this.router.navigateByUrl('');
       },
       err => {
         SignInService.isLoggedIn = false;
-        if (err.status == 400)
-        {
+        if (err.status == 400) {
           this.toastr.error('Incorrect email or password.', 'Authentication failed.');
         }
-        else
-        {
+        else {
           console.log(err);
         }
       }

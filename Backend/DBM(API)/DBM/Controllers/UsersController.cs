@@ -113,7 +113,9 @@ namespace DBM.Controllers
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                return Ok(new { token });
+                DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+                var id = db.Users.Where(t => t.Email == model.Email).FirstOrDefault().Id;
+                return Ok(new { token, id });
             }
             else
             {

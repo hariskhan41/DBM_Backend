@@ -36,10 +36,10 @@
       <h1>Digital Board Marker</h1>
       <span class="menu-spacer"></span>
       <div>
-        <a mat-button *ngIf="service.loggedIn()" [routerLink]="'/AllInstitutes'"> Institutes </a>
-        <a mat-button *ngIf="service.loggedIn()" [routerLink]="'/AllTeacher'"> Teachers </a>
-        <a mat-button *ngIf="service.loggedIn()" [routerLink]="'/permission/permissionManagement'"> Permission </a>
-        <a mat-button *ngIf="service.loggedIn()" [routerLink]="'/course/AllCourses'"> Courses </a>
+        <a mat-button *ngIf="service.loggedIn() && service.checkAdmin()" [routerLink]="'/AllInstitutes'"> Institutes </a>
+        <a mat-button *ngIf="service.loggedIn() && service.checkAdmin()" [routerLink]="'/AllTeacher'"> Teachers </a>
+        <a mat-button *ngIf="service.loggedIn() && service.checkAdmin()" [routerLink]="'/permission/permissionManagement'"> Permission </a>
+        <a mat-button *ngIf="service.loggedIn()" [routerLink]="'/AllCourses'"> Courses </a>
         <a mat-button *ngIf="!service.loggedIn()" [routerLink]="'/signup'"> Register </a>
         <a mat-button *ngIf="!service.loggedIn()" [routerLink]="'/login'"> Login </a>
         <!-- <a mat-button *ngIf="service.loggedIn()" (click)="onLogout()"> Logout </a> -->

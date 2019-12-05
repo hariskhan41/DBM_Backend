@@ -50,7 +50,7 @@ export class CoursesService {
   }
 
   getCoursesList() {
-    this.http.get(this.rootURL + 'Course/GetAllCourses' + localStorage.getItem('Id'))
+    this.http.get(this.rootURL + 'Course/GetAllCourses/' + localStorage.getItem('Id'))
       .toPromise()
       .then(
         res => {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DBM.Models;
+using DBM.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -23,6 +24,7 @@ namespace DBM.Controllers
 
         [HttpGet]
         [Authorize]
+        [Route("GetUserProfile")]
         public async Task<Object> GetUSerProfile()
         {
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
@@ -38,6 +40,27 @@ namespace DBM.Controllers
                 user.UserName
             };
         }
+
+        [HttpGet]
+        [Route("RoleDetails/{id}")]
+        public List<UserRegistrationViewModel> GetUserRoleDetails(int? id)
+        {
+            
+            List<UserRegistrationViewModel> lst = new List<UserRegistrationViewModel>();
+
+            if (id != 0)
+            {
+                DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+                string designantion = db.Users.Where(u => u.Id == id).FirstOrDefault().Designation;
+                //user.Id = Convert.ToString(tempId);
+
+                UserRegistrationViewModel u1 = new UserRegistrationViewModel();
+                u1.Designation = designantion;
+                lst.Add(u1);
+            }
+            return lst;
+        }
+
 
         [HttpGet]
         [Authorize(Roles = "Admin")]

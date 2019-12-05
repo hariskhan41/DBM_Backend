@@ -11,6 +11,7 @@ import { AnnouncementsModule } from 'src/app/announcements/announcements.module'
 import { LecturesComponent } from './pages/lectures/lectures.component';
 import { NotesModule } from 'src/app/notes';
 import { AssignmentsModule } from 'src/app/assignments/assignments.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 import { MatCardModule } from '@angular/material/card';
@@ -68,6 +69,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     AnnouncementsModule,
     NotesModule,
     AssignmentsModule,
+    SharedModule,
 
     BrowserModule,
     FormsModule,
