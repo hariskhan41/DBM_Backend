@@ -8,6 +8,8 @@ import { AssignCourseComponent } from './pages/assign-course/assign-course.compo
 import { EnrollmentRequestsComponent } from './pages/enrollment-requests/enrollment-requests.component';
 import { AuthGuard } from '../shared/auth/auth.guard';
 
+import{AddAnnouncementComponent} from './pages/add-announcement/add-announcement.component';
+
 
 
 
@@ -17,6 +19,11 @@ const routes: Routes = [
     component: AddCoursesComponent,
     canActivate: [AuthGuard], 
     data: { permittedRoles: ['Admin'] }
+  },
+  { 
+    path: 'AddAnnouncement',
+    component: AddAnnouncementComponent,
+    
   },
   {
     path: 'AllCourses',
