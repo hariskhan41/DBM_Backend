@@ -23,38 +23,14 @@ export class AllcoursesComponent implements OnInit {
   ngOnInit() {
 
     this.service.editFlag = false;
-    var test1 = '';
+    if (localStorage.getItem('token')) {
+      var i = localStorage.getItem('Id');
 
-
-
-    this.Service2.getUserProfile().subscribe(
-      res => {
-        console.log(res);
-        this.userDetails = res;
-        // test1 = this.userDetails['tempId'];
-        // alert(test1);
-        // this.service.formData = res as Courses;
-        // CoursesService.id = this.userDetails.tempId;
-        // alert(CoursesService.id);
-        // this.service.formData = {
-        //   id: CoursesService.id,
-        //   name: '',
-        //   email: '',
-        //   courseCode: '',
-        //   courseSession: '',
-        //   courseSemester: ''
-        // }
-        //console.log(this.service.formData);
-      },
-      err => {
-        console.log(err);
-        //alert("err");
-      }
-    );
-
-    alert("aa");
-
-    //this.Service2.getUserRole();
+      this.Service2.getUserRole(i);
+      // console.log(this.service.lstTemp[0]['Designation']);
+      // console.log(this.service.lstTemp);
+      // this.service.designation = this.service.lstTemp[0]['designation'];
+    }
 
 
 
@@ -119,13 +95,12 @@ export class AllcoursesComponent implements OnInit {
 
       },
       err => {
-        
+
       }
     );
   }
 
-  ViewCourse(C: Courses,form:NgForm)
-  {
+  ViewCourse(C: Courses, form: NgForm) {
     this.service.formData = C;
     form.value.name = C.name;
     localStorage.setItem('CourseName', String(C.name));

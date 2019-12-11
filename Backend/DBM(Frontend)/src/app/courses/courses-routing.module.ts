@@ -7,6 +7,7 @@ import { CourseDashboardComponent } from './pages/course-dashboard/course-dashbo
 import { AssignCourseComponent } from './pages/assign-course/assign-course.component';
 import { EnrollmentRequestsComponent } from './pages/enrollment-requests/enrollment-requests.component';
 import { AuthGuard } from '../shared/auth/auth.guard';
+// import { AllCoursesComponent } from './pages/all-courses/all-courses.component';
 
 
 

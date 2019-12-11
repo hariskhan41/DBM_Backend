@@ -133,12 +133,15 @@
 <br>
 <br>
 <br>
+<br>
 
 <h2 style="text-align:center; margin-top: -35px;">All Courses</h2>
 
-<a [routerLink]="'/AddCourse'"><button mat-raised-button class="btn-add"
-        color="primary">Add
-        Course</button></a>
+<div *ngIf="Service2.checkAdmin()">
+    <a routerLink='/AddCourse'><button mat-raised-button class="btn-add" color="primary">Add
+            Course</button></a>
+</div>
+
 <br>
 <br>
 <br>
@@ -187,13 +190,20 @@
                         <p class="myClass"><b>{{course.name}}</b></p>
                         <p class="myClass"><b>{{course.courseCode}}</b></p>
                         <hr>
-                        <i class="fas fa-comment">155 &nbsp;&nbsp;&nbsp;</i>
-                        <i class="fas fa-thumbs-up">200</i>
-                        <a type="submit" mat-raised-button style="margin-left:50px"
-                            (click)="EnrolInCourse(course, form)">Not Enrolled</a>
+                        <!-- <i class="fas fa-comment">155 &nbsp;&nbsp;&nbsp;</i>
+                        <i class="fas fa-thumbs-up">200</i> -->
+                        <div class="pad"></div>
+                        <div *ngIf="Service2.checkStudent()">
+                            <button mat-raised-button class="btn-add1" color="primary" type="submit"
+                                style="margin-left:25px" (click)="EnrolInCourse(course, form)">Enrol</button>
+                        </div>
                         <br>
-                        <a (click)="editCourse(course)">Edit</a>
-                        <a style="margin-left:110px" href="#">Delete</a>
+                        <div *ngIf="Service2.checkAdmin()">
+                            <button mat-raised-button class="btn-enrol" color="primary" style="margin-left:05px"
+                                (click)="editCourse(course)">Edit</button>
+                            <button mat-raised-button class="btn-enrol" color="primary" (click)="editCourse(course)"
+                                style="margin-left:80px">Delete</button>
+                        </div>
                     </mat-card-content>
                 </mat-card>
             </mat-grid-tile>
