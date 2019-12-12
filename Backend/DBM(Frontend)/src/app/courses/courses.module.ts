@@ -35,8 +35,11 @@ import { MatSelectModule } from '@angular/material/select'
 
 import { AssignCourseComponent } from './pages/assign-course/assign-course.component';
 import { EnrollmentRequestsComponent } from './pages/enrollment-requests/enrollment-requests.component';
+
+// import { AllCoursesComponent } from './pages/all-courses/all-courses.component';
 import { AddAnnouncementComponent } from './pages/add-announcement/add-announcement.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
 
 
 
@@ -57,6 +60,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     LecturesComponent,
     AssignCourseComponent,
     EnrollmentRequestsComponent,
+
     AddAnnouncementComponent
   ],
   exports: [

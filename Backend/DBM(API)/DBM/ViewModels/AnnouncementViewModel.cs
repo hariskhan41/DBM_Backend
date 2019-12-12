@@ -9,6 +9,7 @@ namespace DBM.ViewModels
     {
         public string Email { get; set; }
 
+
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -16,8 +17,10 @@ namespace DBM.ViewModels
         public DateTime CreatedOn { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
+
         public string CourseName { get; set; }
 
         public string postedDate { get; set; }
+
     }
 }

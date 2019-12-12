@@ -39,7 +39,8 @@ export class SignInService {
     this.http.get(this.rootURL + '/UserProfile/RoleDetails/' + id).toPromise().then(
       (res:any) => {
         this.lstTemp = res as SignUp[];
-        console.log(this.designation=this.lstTemp[0]['designation']);
+        console.log(this.lstTemp[0]['designation']);
+        this.designation = this.lstTemp[0]['designation'];
         // alert("stop");
       }
     );
@@ -47,6 +48,24 @@ export class SignInService {
 
   checkAdmin() {
     if (this.designation == 'Admin') {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  checkTeacher() {
+    if (this.designation == 'Teacher') {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  checkStudent() {
+    if (this.designation == 'Student') {
       return true;
     }
     else {

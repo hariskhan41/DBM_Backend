@@ -23,7 +23,9 @@ export class AllcoursesComponent implements OnInit {
   ngOnInit() {
 
     this.service.editFlag = false;
-    var test1 = '';
+    if (localStorage.getItem('token')) {
+      var i = localStorage.getItem('Id');
+
 
 
 
@@ -53,6 +55,13 @@ export class AllcoursesComponent implements OnInit {
     );
 
     //this.Service2.getUserRole();
+
+      this.Service2.getUserRole(i);
+      // console.log(this.service.lstTemp[0]['Designation']);
+      // console.log(this.service.lstTemp);
+      // this.service.designation = this.service.lstTemp[0]['designation'];
+    }
+
 
 
 
@@ -117,13 +126,12 @@ export class AllcoursesComponent implements OnInit {
 
       },
       err => {
-        
+
       }
     );
   }
 
-  ViewCourse(C: Courses,form:NgForm)
-  {
+  ViewCourse(C: Courses, form: NgForm) {
     this.service.formData = C;
     form.value.name = C.name;
     localStorage.setItem('CourseName', String(C.name));
