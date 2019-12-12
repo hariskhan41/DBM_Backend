@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
 
     console.log(this.service.designation);
     
-    this.router.navigate(['/']);
+    // this.router.navigate(['']);
     
 
 

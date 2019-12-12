@@ -6,7 +6,7 @@ import { CoursesComponent } from './pages/courses.component';
 import { AllcoursesComponent } from './pages/allcourses/allcourses.component';
 import { AddCoursesComponent } from './pages/add-courses/add-courses.component';
 import { CourseDashboardComponent } from './pages/course-dashboard/course-dashboard.component';
-import { AnnouncementsComponent } from './pages/announcements/announcements.component';
+
 import { AnnouncementsModule } from 'src/app/announcements/announcements.module';
 import { LecturesComponent } from './pages/lectures/lectures.component';
 import { NotesModule } from 'src/app/notes';
@@ -53,7 +53,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     AllcoursesComponent,
     AddCoursesComponent,
     CourseDashboardComponent,
-    AnnouncementsComponent,
+  
     LecturesComponent,
     AssignCourseComponent,
     EnrollmentRequestsComponent,
@@ -64,7 +64,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     AllcoursesComponent,
     AddCoursesComponent,
     CourseDashboardComponent,
-    AnnouncementsComponent,
+   
     LecturesComponent //Don't forget to export
  
   ],

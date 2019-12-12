@@ -4,6 +4,8 @@ import { HostBinding } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CoursesService } from 'src/app/shared/CoursesService/courses.service';
+
 
 export interface ExampleTab {
   label: string;
@@ -17,13 +19,14 @@ export interface ExampleTab {
 })
 export class CourseDashboardComponent implements OnInit {
 
+  MyName:string;
   ngVersion: string = VERSION.full;
   matVersion: string = '5.1.0';
   breakpoint: number;
 
   asyncTabs: Observable<ExampleTab[]>;
 
-  constructor( private router:Router) {
+  constructor( private router:Router , private service:CoursesService) {
     this.asyncTabs = new Observable((observer: Observer<ExampleTab[]>) => {
       setTimeout(() => {
         observer.next([
@@ -36,6 +39,7 @@ export class CourseDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.MyName = this.service.getCourseName();
     this.breakpoint = (window.innerWidth <= 800) ? 1 : 1;
     // this.breakpoint = (window.innerWidth <= 500) ? 1 : 4;
   }

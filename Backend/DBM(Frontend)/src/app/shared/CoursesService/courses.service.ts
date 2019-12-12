@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class CoursesService {
   formData: Courses;
   teachersLst;
+  Name:string;
   readonly rootURL = 'http://localhost:3845/api/';
   list: Courses[];
   EnrollmentList:Courses[];
@@ -81,5 +82,12 @@ export class CoursesService {
           this.teachersLst = res;
         }
       );
+  }
+
+  getCourseName()
+  {
+    return localStorage.getItem('CourseName');
+   
+   
   }
 }

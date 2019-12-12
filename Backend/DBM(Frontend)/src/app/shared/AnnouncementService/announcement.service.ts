@@ -6,10 +6,24 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AnnouncementService {
     formData: Announcement;
+    list:Announcement[];
     readonly rootURL = 'http://localhost:3845/api/';
   constructor(private http: HttpClient) { }
 
   postAddAnnouncement(formData: Announcement) {
-    return this.http.post(this.rootURL + 'Announcement/AddAnnouncement', formData);
+    return this.http.post(this.rootURL + 'Announcement/', formData);
   }
+  getAnnouncementList() {
+    this.http.get(this.rootURL + 'Announcement/' + localStorage.getItem('CourseName'))
+      .toPromise()
+      .then(
+        res => {
+          this.list = res as Announcement[];
+          console.log(res);
+        }
+      );
+  }
+
+ 
+  
 }

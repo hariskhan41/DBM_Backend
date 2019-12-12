@@ -52,6 +52,15 @@ namespace DBM.Controllers
             return courseLst.ToList();
         }
 
+        [HttpGet]
+        [Route("GetCourseDetails/{CourseName}")]
+        public string Get(string CourseName)
+        {
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            string name = db.Courses.Where(b => b.Name == CourseName).FirstOrDefault().CourseCode;
+            return "(" + name + ")" + CourseName;
+        }
+
         [HttpGet("{id}")]
         public IEnumerable<CourseViewModel> GetCoursesAssignedToTeacher(int id)
         {

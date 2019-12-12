@@ -2,6 +2,7 @@ export class Announcement {
     id: number;
     Title: string;
     description: string;
-    courseId: number;
+    CourseName: string;
     email: string;
+    postedDate:string;
 }

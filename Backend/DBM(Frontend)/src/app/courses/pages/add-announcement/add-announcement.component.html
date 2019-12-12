@@ -7,11 +7,14 @@
                 <input type="hidden" name="id" value="service.formData.id">
             </div>
             <div class="form-group">
-                <input type="hidden" name="courseid" value="service.formData.courseid">
+                <input type="hidden" name="CourseName" value="service.formData.CourseName">
             </div>
             <div class="form-group">
                 <input type="hidden" name="email" value="service.formData.email">
             </div>
+            <div class="form-group">
+                    <input type="hidden" name="postedDate" value="service.formData.postedDate">
+                </div>
 
             <div class="form-group">
                 <mat-form-field color="accent" appearance="outline" class="form-input">
@@ -31,11 +34,11 @@
             </div> -->
 
             <br>
-            <h3 style="text-align: left; margin-left: 5%;">Announcement Description</h3>
+            <h3 style="text-align: left; margin-left: 5%;">Description</h3>
             <div class="form-group">
             <div class="rich-text">
-                <ckeditor [editor]="Editor"><input  matInput name="description" #description="ngModel" [ngModel]="service.formData.description"
-                    class="form-control" required></ckeditor>
+                <ckeditor [editor]="Editor" matInput name="description" #description="ngModel" [ngModel]="service.formData.description"
+                class="form-control" required></ckeditor>
             </div>
         </div>
             <br>

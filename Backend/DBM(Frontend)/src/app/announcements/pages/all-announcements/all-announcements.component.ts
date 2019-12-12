@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AnnouncementService } from 'src/app/shared/AnnouncementService/announcement.service';
 
 @Component({
   selector: 'app-all-announcements',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllAnnouncementsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:AnnouncementService) { }
 
   ngOnInit() {
+    this.service.getAnnouncementList();
   }
 
 }

@@ -54,7 +54,8 @@
 <br>
 <br>
 <form class="form-inline head">
-  <h1>Database Management System(Th) -- 2019</h1>
+  <!-- <h1>Database Management System(Th) -- 2019</h1> -->
+  <h1>{{MyName}}</h1>
   <button mat-raised-button class="btn-enroll" color="primary" (click)="ViewRequests()">Enrollment Requests</button>
 </form>
 
@@ -68,10 +69,10 @@
           Announcement
         </ng-template>
         <br><br>
-        <a routerLink='/AddAnnouncements'><button mat-raised-button class="btn-add" color="primary">Add
+        <a routerLink='/AddAnnouncement'><button mat-raised-button class="btn-add" color="primary">Add
             Announcements</button></a>
         <br><br>
-        <!-- <app-all-announcements></app-all-announcements> -->
+        <app-all-announcements></app-all-announcements>
         <br>
       </mat-tab>
       <mat-tab>

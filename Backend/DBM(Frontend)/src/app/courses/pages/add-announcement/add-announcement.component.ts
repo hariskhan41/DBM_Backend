@@ -40,8 +40,9 @@ export class AddAnnouncementComponent implements OnInit {
       id: 0,
       Title: '',
       description: '',
-      courseId: 0,
-      email:''
+      CourseName: '',
+      email:'',
+      postedDate:''
     }
   }
 
@@ -56,7 +57,8 @@ export class AddAnnouncementComponent implements OnInit {
   }
 
     insertRecord(form: NgForm) {
-      // form.value.Email = this.userDetails.email;
+      form.value.Email = this.userDetails.email;
+      form.value.CourseName = localStorage.getItem('CourseName');
       this.service.postAddAnnouncement(form.value).subscribe(
         res => {
           this.resetForm(form);
