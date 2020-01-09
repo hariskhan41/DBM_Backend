@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +8,12 @@ namespace DBM.ViewModels
 {
     public class AssignmentsViewModel
     {
-        //public int Id { get; set; }
+
+        public string Email { get; set; }
+   
+        public int Id { get; set; }
+        [Required]
+        [StringLength(255)]
         public string FilePath { get; set; }
         public string Title { get; set; }
         public DateTime SubmissionDateTime { get; set; }
@@ -19,7 +25,6 @@ namespace DBM.ViewModels
         public DateTime UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public string CourseName { get; set; }
-       // public int CourseId { get; set; }
 
     }
 }
