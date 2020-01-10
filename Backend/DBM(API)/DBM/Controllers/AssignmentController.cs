@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using DBM.Models;
 using DBM.ViewModels;
 using Microsoft.AspNetCore.Identity;
+
+using Microsoft.AspNetCore.Hosting;
+
 using System.IO;
 using System.Net.Http.Headers;
 
@@ -16,7 +19,15 @@ namespace DBM.Controllers
     [ApiController]
     public class AssignmentController : ControllerBase
     {
+
+        private IHostingEnvironment _hostingEnvironment;
+        public AssignmentController(IHostingEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
+
         // GET: api/Assignment
+
         [HttpGet]
         public IEnumerable<AssignmentsViewModel> Get()
         {
@@ -98,24 +109,23 @@ namespace DBM.Controllers
             {
                 return BadRequest();
             }
+            var file = Request.Form.Files[0];
+            var folderName = "Resources";
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
-            //if(db.Assignments.Any(b=>b.Title == val.Title && b.FilePath == val.FilePath))
-            //{
-            //    ModelState.AddModelError("UniqueAssignment", "This assignment already exists");
-            //    return BadRequest(ModelState);
-            //}
-            //else if(val.SubmissionDateTime < DateTime.Now)
-            //{
-            //    ModelState.AddModelError("", "Enter valid Submission Date");
-            //    return BadRequest(ModelState);
-            //}
-            //else if (val.StartDateTime < DateTime.Now)
-            //{
-            //    ModelState.AddModelError("", "Enter valid Submission Date");
-            //    return BadRequest(ModelState);
-            //}
+            if (file.Length > 0)
+            {
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                var fullPath = Path.Combine(pathToSave, fileName);
+                var dbPath = Path.Combine(folderName, fileName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
             ass.Title = val.Title;
-            ass.FilePath = val.FilePath;
+            ass.FilePath = file.ToString();
             ass.SubmissionDateTime = val.SubmissionDateTime;
             ass.StartDateTime = val.StartDateTime;
             ass.Status = "Not Submitted";

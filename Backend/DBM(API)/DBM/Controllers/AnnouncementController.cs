@@ -15,7 +15,7 @@ namespace DBM.Controllers
     {
         // GET: api/Announcement
         [HttpGet("{CourseName}")]
-        public IEnumerable<AnnouncementViewModel> Get(string CourseName)
+        public IEnumerable<AnnouncementViewModel>Get(string CourseName)
         {
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             List<AnnouncementViewModel> lst = new List<AnnouncementViewModel>();
@@ -44,7 +44,6 @@ namespace DBM.Controllers
     
         // POST: api/Announcement
         [HttpPost]
-        
         public IActionResult Post([FromBody] AnnouncementViewModel obj)
         {
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
