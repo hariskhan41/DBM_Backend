@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using DBM.Models;
 using DBM.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace DBM.Controllers
 {
@@ -54,27 +56,64 @@ namespace DBM.Controllers
 
         }
         // POST: api/Assignment
-        [HttpPost]
+        [HttpPost, DisableRequestSizeLimit]
         public IActionResult Post([FromBody] AssignmentsViewModel val)
         {
             
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             Assignments ass = new Assignments();
-            if(db.Assignments.Any(b=>b.Title == val.Title && b.FilePath == val.FilePath))
+
+            ass.Title = val.Title;
+            //ass.FilePath = val.FilePath;
+            ass.SubmissionDateTime = val.SubmissionDateTime;
+            ass.StartDateTime = val.StartDateTime;
+            ass.Status = "Not Submitted";
+            ass.PostSubmissionDateTime = val.SubmissionDateTime;
+            ass.CreatedBy = 1;
+            ass.UpdatedBy = 1;
+            ass.CreatedOn = DateTime.Now;
+            ass.UpdatedOn = DateTime.Now;
+            ass.CourseId = 3;
+            db.Assignments.Add(ass);
+            
+
+            var file = Request.Form.Files[0];
+            var folderName = Path.Combine("Resources", "Images");
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+            if (file.Length > 0)
             {
-                ModelState.AddModelError("UniqueAssignment", "This assignment already exists");
-                return BadRequest(ModelState);
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                var fullPath = Path.Combine(pathToSave, fileName);
+                var dbPath = Path.Combine(folderName, fileName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                db.SaveChanges();
+                return Ok(new { dbPath });
             }
-            else if(val.SubmissionDateTime < DateTime.Now)
+            else
             {
-                ModelState.AddModelError("", "Enter valid Submission Date");
-                return BadRequest(ModelState);
+                return BadRequest();
             }
-            else if (val.StartDateTime < DateTime.Now)
-            {
-                ModelState.AddModelError("", "Enter valid Submission Date");
-                return BadRequest(ModelState);
-            }
+
+            //if(db.Assignments.Any(b=>b.Title == val.Title && b.FilePath == val.FilePath))
+            //{
+            //    ModelState.AddModelError("UniqueAssignment", "This assignment already exists");
+            //    return BadRequest(ModelState);
+            //}
+            //else if(val.SubmissionDateTime < DateTime.Now)
+            //{
+            //    ModelState.AddModelError("", "Enter valid Submission Date");
+            //    return BadRequest(ModelState);
+            //}
+            //else if (val.StartDateTime < DateTime.Now)
+            //{
+            //    ModelState.AddModelError("", "Enter valid Submission Date");
+            //    return BadRequest(ModelState);
+            //}
             ass.Title = val.Title;
             ass.FilePath = val.FilePath;
             ass.SubmissionDateTime = val.SubmissionDateTime;
