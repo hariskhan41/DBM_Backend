@@ -13,7 +13,7 @@ namespace DBM.ViewModels
         //[Column(TypeName = "nvarchar(150)")]
         //public string FullName { get; set; }
 
-        //public int Id { get; set; }
+        public int Id { get; set; }
 
         public string FirstName { get; set; }
 

@@ -67,80 +67,80 @@ namespace DBM.Controllers
 
         }
         // POST: api/Assignment
-        [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Post([FromBody] AssignmentsViewModel val)
-        {
+        //[HttpPost, DisableRequestSizeLimit]
+        //public IActionResult Post([FromBody] AssignmentsViewModel val)
+        //{
             
-            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
-            Assignments ass = new Assignments();
+        //    DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+        //    Assignments ass = new Assignments();
 
-            ass.Title = val.Title;
-            //ass.FilePath = val.FilePath;
-            ass.SubmissionDateTime = val.SubmissionDateTime;
-            ass.StartDateTime = val.StartDateTime;
-            ass.Status = "Not Submitted";
-            ass.PostSubmissionDateTime = val.SubmissionDateTime;
-            ass.CreatedBy = 1;
-            ass.UpdatedBy = 1;
-            ass.CreatedOn = DateTime.Now;
-            ass.UpdatedOn = DateTime.Now;
-            ass.CourseId = 3;
-            db.Assignments.Add(ass);
+        //    ass.Title = val.Title;
+        //    //ass.FilePath = val.FilePath;
+        //    ass.SubmissionDateTime = val.SubmissionDateTime;
+        //    ass.StartDateTime = val.StartDateTime;
+        //    ass.Status = "Not Submitted";
+        //    ass.PostSubmissionDateTime = val.SubmissionDateTime;
+        //    ass.CreatedBy = 1;
+        //    ass.UpdatedBy = 1;
+        //    ass.CreatedOn = DateTime.Now;
+        //    ass.UpdatedOn = DateTime.Now;
+        //    ass.CourseId = 3;
+        //    db.Assignments.Add(ass);
             
 
-            var file = Request.Form.Files[0];
-            var folderName = Path.Combine("Resources", "Images");
-            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+        //    var file = Request.Form.Files[0];
+        //    var folderName = Path.Combine("Resources", "Images");
+        //    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
-            if (file.Length > 0)
-            {
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(pathToSave, fileName);
-                var dbPath = Path.Combine(folderName, fileName);
+        //    if (file.Length > 0)
+        //    {
+        //        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+        //        var fullPath = Path.Combine(pathToSave, fileName);
+        //        var dbPath = Path.Combine(folderName, fileName);
 
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-                db.SaveChanges();
-                return Ok(new { dbPath });
-            }
-            else
-            {
-                return BadRequest();
-            }
-            var file = Request.Form.Files[0];
-            var folderName = "Resources";
-            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+        //        using (var stream = new FileStream(fullPath, FileMode.Create))
+        //        {
+        //            file.CopyTo(stream);
+        //        }
+        //        db.SaveChanges();
+        //        return Ok(new { dbPath });
+        //    }
+        //    else
+        //    {
+        //        return BadRequest();
+        //    }
+        //    var file = Request.Form.Files[0];
+        //    var folderName = "Resources";
+        //    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
-            if (file.Length > 0)
-            {
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(pathToSave, fileName);
-                var dbPath = Path.Combine(folderName, fileName);
+        //    if (file.Length > 0)
+        //    {
+        //        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+        //        var fullPath = Path.Combine(pathToSave, fileName);
+        //        var dbPath = Path.Combine(folderName, fileName);
 
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-            }
-            ass.Title = val.Title;
-            ass.FilePath = file.ToString();
-            ass.SubmissionDateTime = val.SubmissionDateTime;
-            ass.StartDateTime = val.StartDateTime;
-            ass.Status = "Not Submitted";
-            ass.PostSubmissionDateTime = val.SubmissionDateTime;
-            // cd.CreatedBy = db.Users.Where(b => b.Email == GetCurrentUserAsync().ToString()).FirstOrDefault().Id;
-            // cd.UpdatedBy = db.Users.Where(b => b.Email == GetCurrentUserAsync().ToString()).FirstOrDefault().Id;
-            ass.CreatedBy = 1;
-            ass.UpdatedBy = 1;
-            ass.CreatedOn = DateTime.Now;
-            ass.UpdatedOn = DateTime.Now;
-            ass.CourseId = 3;
-            db.Assignments.Add(ass);
-            db.SaveChanges();
-            return Ok();
-        }
+        //        using (var stream = new FileStream(fullPath, FileMode.Create))
+        //        {
+        //            file.CopyTo(stream);
+        //        }
+        //    }
+        //    ass.Title = val.Title;
+        //    ass.FilePath = file.ToString();
+        //    ass.SubmissionDateTime = val.SubmissionDateTime;
+        //    ass.StartDateTime = val.StartDateTime;
+        //    ass.Status = "Not Submitted";
+        //    ass.PostSubmissionDateTime = val.SubmissionDateTime;
+        //    // cd.CreatedBy = db.Users.Where(b => b.Email == GetCurrentUserAsync().ToString()).FirstOrDefault().Id;
+        //    // cd.UpdatedBy = db.Users.Where(b => b.Email == GetCurrentUserAsync().ToString()).FirstOrDefault().Id;
+        //    ass.CreatedBy = 1;
+        //    ass.UpdatedBy = 1;
+        //    ass.CreatedOn = DateTime.Now;
+        //    ass.UpdatedOn = DateTime.Now;
+        //    ass.CourseId = 3;
+        //    db.Assignments.Add(ass);
+        //    db.SaveChanges();
+        //    return Ok();
+        //}
          
         // PUT: api/Assignment/5
         [HttpPut("{id}")]
