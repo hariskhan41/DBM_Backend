@@ -45,29 +45,6 @@ export class SignupComponent implements OnInit {
 
   myInstitute: institute[];
   selected = null;
-
-  // constructor(private service: SignUpService, private formBuilder: FormBuilder) {
-  //   this.form = this.formBuilder.group({
-  //     institutes: ['']
-  //   });
-  //   //this.institutes = this.getInstitutes();
-
-  // }
-
-  // getInstitutes() {
-  //   return this.service.getInstitutes().subscribe(p => {
-
-  //   });
-  //   // return [
-  //   //   { value: '1', viewValue: 'order 1' },
-  //   //   { value: '2', viewValue: 'order 2' },
-  //   //   { value: '3', viewValue: 'order 3' },
-  //   //   { value: '4', viewValue: 'order 4' }
-  //   // ];
-  // }
-
-
-
   ngOnInit() {
 
     this.resetForm();

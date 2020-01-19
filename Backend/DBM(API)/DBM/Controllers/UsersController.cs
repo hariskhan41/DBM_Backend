@@ -124,9 +124,11 @@ namespace DBM.Controllers
                 }
             }
             catch (Exception ex)
+            catch(Exception e)
             {
-                return BadRequest(new { message = "Email or Password is incorrect" });
+                throw (e);
             }
+           
         }
         [HttpPost]
         public IActionResult Post([FromBody] UserRegistrationViewModel users)
