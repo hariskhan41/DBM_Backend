@@ -123,8 +123,11 @@ namespace DBM.Controllers
                     return BadRequest(new { message = "Email or Password is incorrect" });
                 }
             }
+<<<<<<< HEAD
             catch (Exception ex)
+=======
             catch(Exception e)
+>>>>>>> 267455b03aa3a6214c701c0cf24df102dea43d85
             {
                 throw (e);
             }

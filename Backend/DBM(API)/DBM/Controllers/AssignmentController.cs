@@ -66,6 +66,7 @@ namespace DBM.Controllers
             return user.Email;
 
         }
+<<<<<<< HEAD
 
         [HttpPost, DisableRequestSizeLimit]
         [Route("Upload")]
@@ -130,6 +131,7 @@ namespace DBM.Controllers
             db.SaveChanges();
             return Ok();
         }
+=======
         // POST: api/Assignment
         //[HttpPost, DisableRequestSizeLimit]
         //public IActionResult Post([FromBody] AssignmentsViewModel val)
@@ -205,6 +207,7 @@ namespace DBM.Controllers
         //    db.SaveChanges();
         //    return Ok();
         //}
+>>>>>>> 267455b03aa3a6214c701c0cf24df102dea43d85
          
         // PUT: api/Assignment/5
         [HttpPut("{id}")]
