@@ -202,17 +202,31 @@ namespace DBM.Controllers
         {
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             TeachersAssignedCourses t = new TeachersAssignedCourses();
+            bool k = false;
             t.CourseId = db.Courses.Where(b => b.Name == course.name).FirstOrDefault().Id;
             t.UserId = db.Users.Where(b => b.Email == course.email).FirstOrDefault().Id;
-            int k = db.TeachersAssignedCourses.Where(p => p.UserId == t.UserId).FirstOrDefault().CourseId;
-            if (db.TeachersAssignedCourses.Where(p => p.UserId == t.UserId).FirstOrDefault().CourseId == t.CourseId)
+            foreach (TeachersAssignedCourses t1 in db.TeachersAssignedCourses)
+            {
+                if (t1.CourseId == t.CourseId && t1.UserId == t.UserId)
+                {
+                    k = true;
+                    break;
+                }
+            }
+            //Nullable<int> k = db.TeachersAssignedCourses.Where(p => p.UserId == t.UserId).FirstOrDefault().CourseId;
+            if (k == false)
+            {
+                db.Add(t);
+                db.SaveChanges();
+                return Ok();
+            }
+            else
             {
                 ModelState.AddModelError("", "Course already assigned to this teacher");
                 return BadRequest(ModelState);
             }
-            db.Add(t);
-            db.SaveChanges();
-            return Ok();
+            
+            
         }
 
         // DELETE: api/ApiWithActions/5

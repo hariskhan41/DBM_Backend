@@ -39,7 +39,7 @@ namespace DBM.Controllers
                 a.Title = s.Title;
                 a.CreatedBy = db.Users.Where(b => b.Id == s.CreatedBy).FirstOrDefault().FirstName + " " + db.Users.Where(b => b.Id == s.CreatedBy).FirstOrDefault().LastName;
                 a.UpdatedBy = db.Users.Where(b => b.Id == s.UpdatedBy).FirstOrDefault().FirstName + " " + db.Users.Where(b => b.Id == s.UpdatedBy).FirstOrDefault().LastName;
-                a.SubmissionDateTime = s.SubmissionDateTime;
+                //a.SubmissionDateTime = s.SubmissionDateTime;
                 a.StartDateTime = s.StartDateTime;
                 a.PostSubmissionDateTime = s.PostSubmissionDateTime;
                 a.Status = s.Status;
@@ -66,78 +66,67 @@ namespace DBM.Controllers
             return user.Email;
 
         }
+
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("Upload")]
+        public IActionResult Upload()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    return Ok(new { dbPath });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
         // POST: api/Assignment
         [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Post([FromBody] AssignmentsViewModel val)
+        [Route("SaveAssignment/{CourseName}")]
+        public IActionResult Post([FromBody] AssignmentsViewModel val, string CourseName)
         {
-            
+            string tempFilePath = val.FilePath;
+            val.FilePath = "Resources/Images/";
+            val.FilePath = val.FilePath + tempFilePath;
+
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             Assignments ass = new Assignments();
 
             ass.Title = val.Title;
-            //ass.FilePath = val.FilePath;
-            ass.SubmissionDateTime = val.SubmissionDateTime;
+            ass.FilePath = val.FilePath;
+            ass.SubmissionDateTime = val.SubmissionDate;
             ass.StartDateTime = val.StartDateTime;
-            ass.Status = "Not Submitted";
-            ass.PostSubmissionDateTime = val.SubmissionDateTime;
-            ass.CreatedBy = 1;
-            ass.UpdatedBy = 1;
+            ass.Status = "Available";
+            ass.PostSubmissionDateTime = val.SubmissionDate;
+            ass.CreatedBy = db.Users.Where(u => u.Email.Equals(val.Email)).FirstOrDefault().Id;
+            ass.UpdatedBy = db.Users.Where(u => u.Email.Equals(val.Email)).FirstOrDefault().Id; ;
             ass.CreatedOn = DateTime.Now;
             ass.UpdatedOn = DateTime.Now;
-            ass.CourseId = 3;
+            ass.CourseId = db.Courses.Where(c => c.Name.Equals(CourseName)).FirstOrDefault().Id;
             db.Assignments.Add(ass);
-            
 
-            var file = Request.Form.Files[0];
-            var folderName = Path.Combine("Resources", "Images");
-            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
-            if (file.Length > 0)
-            {
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(pathToSave, fileName);
-                var dbPath = Path.Combine(folderName, fileName);
-
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-                db.SaveChanges();
-                return Ok(new { dbPath });
-            }
-            else
-            {
-                return BadRequest();
-            }
-            var file = Request.Form.Files[0];
-            var folderName = "Resources";
-            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
-            if (file.Length > 0)
-            {
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(pathToSave, fileName);
-                var dbPath = Path.Combine(folderName, fileName);
-
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-            }
-            ass.Title = val.Title;
-            ass.FilePath = file.ToString();
-            ass.SubmissionDateTime = val.SubmissionDateTime;
-            ass.StartDateTime = val.StartDateTime;
-            ass.Status = "Not Submitted";
-            ass.PostSubmissionDateTime = val.SubmissionDateTime;
-            // cd.CreatedBy = db.Users.Where(b => b.Email == GetCurrentUserAsync().ToString()).FirstOrDefault().Id;
-            // cd.UpdatedBy = db.Users.Where(b => b.Email == GetCurrentUserAsync().ToString()).FirstOrDefault().Id;
-            ass.CreatedBy = 1;
-            ass.UpdatedBy = 1;
-            ass.CreatedOn = DateTime.Now;
-            ass.UpdatedOn = DateTime.Now;
-            ass.CourseId = 3;
-            db.Assignments.Add(ass);
             db.SaveChanges();
             return Ok();
         }
@@ -152,11 +141,11 @@ namespace DBM.Controllers
                 ModelState.AddModelError("UniqueAssignment", "This assignment already exists");
                 return BadRequest(ModelState);
             }
-            else if (val.SubmissionDateTime < DateTime.Now)
-            {
-                ModelState.AddModelError("", "Enter valid Submission Date");
-                return BadRequest(ModelState);
-            }
+            //else if (val.SubmissionDateTime < DateTime.Now)
+            //{
+            //    ModelState.AddModelError("", "Enter valid Submission Date");
+            //    return BadRequest(ModelState);
+            //}
             else if (val.StartDateTime < DateTime.Now)
             {
                 ModelState.AddModelError("", "Enter valid Submission Date");
@@ -165,7 +154,7 @@ namespace DBM.Controllers
             db.Assignments.Where(b => b.Id == id).FirstOrDefault().Title = val.Title;
             db.Assignments.Where(b => b.Id == id).FirstOrDefault().FilePath = val.FilePath;
             db.Assignments.Where(b => b.Id == id).FirstOrDefault().PostSubmissionDateTime = val.PostSubmissionDateTime;
-            db.Assignments.Where(b => b.Id == id).FirstOrDefault().SubmissionDateTime = val.SubmissionDateTime;
+            //db.Assignments.Where(b => b.Id == id).FirstOrDefault().SubmissionDateTime = val.SubmissionDateTime;
             db.Assignments.Where(b => b.Id == id).FirstOrDefault().UpdatedOn = DateTime.Now;
             db.Assignments.Where(b => b.Id == id).FirstOrDefault().UpdatedBy = 1;
             // cd.UpdatedBy = db.Users.Where(b => b.Email == GetCurrentUserAsync().ToString()).FirstOrDefault().Id;

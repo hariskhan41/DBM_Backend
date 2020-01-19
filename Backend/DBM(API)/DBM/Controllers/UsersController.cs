@@ -92,32 +92,38 @@ namespace DBM.Controllers
         public async Task<IActionResult> Login(LoginModel model)
         {
 
-
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            try
             {
-                // Get role assigned to user
-                var role = await _userManager.GetRolesAsync(user);
-                IdentityOptions _options = new IdentityOptions();
-
-                var tokenDescriptor = new SecurityTokenDescriptor
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
                 {
-                    Subject = new ClaimsIdentity(new Claim[]
+                    // Get role assigned to user
+                    var role = await _userManager.GetRolesAsync(user);
+                    IdentityOptions _options = new IdentityOptions();
+
+                    var tokenDescriptor = new SecurityTokenDescriptor
                     {
+                        Subject = new ClaimsIdentity(new Claim[]
+                        {
                         new Claim("UserID", user.Id.ToString()),
                         new Claim(_options.ClaimsIdentity.RoleClaimType, role.FirstOrDefault())
-                    }),
-                    Expires = DateTime.UtcNow.AddMinutes(5),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
-                };
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-                var token = tokenHandler.WriteToken(securityToken);
-                DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
-                var id = db.Users.Where(t => t.Email == model.Email).FirstOrDefault().Id;
-                return Ok(new { token, id });
+                        }),
+                        Expires = DateTime.UtcNow.AddMinutes(5),
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
+                    };
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+                    var token = tokenHandler.WriteToken(securityToken);
+                    DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+                    var id = db.Users.Where(t => t.Email == model.Email).FirstOrDefault().Id;
+                    return Ok(new { token, id });
+                }
+                else
+                {
+                    return BadRequest(new { message = "Email or Password is incorrect" });
+                }
             }
-            else
+            catch (Exception ex)
             {
                 return BadRequest(new { message = "Email or Password is incorrect" });
             }

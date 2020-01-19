@@ -12,6 +12,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+// import { MatDatetimepickerModule } from "@mat-datetimepicker/core";
+// import { MatNativeDateModule } from '@angular/material';
+// import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 
 import { AssignmentsRoutingModule } from './assignments-routing.module';
@@ -41,7 +45,12 @@ import { SubmitAssignmentComponent } from './pages/submit-assignment/submit-assi
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    // MatDatetimepickerModule,
+    // MatNativeDateModule,
+    // MatMomentDateModule
   ]
 })
 export class AssignmentsModule { }

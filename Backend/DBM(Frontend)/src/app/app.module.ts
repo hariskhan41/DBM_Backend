@@ -8,6 +8,9 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { MatDatetimepickerModule } from "@mat-datetimepicker/core";
+// import { MatNativeDateModule } from '@angular/material';
+// import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 
 import { MatButtonModule } from '@angular/material/button';
@@ -75,7 +78,10 @@ import { CoursesService } from './shared/CoursesService/courses.service';
     HttpClientModule,
     FormsModule,
     ToastrModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // MatDatetimepickerModule,
+    // MatNativeDateModule,
+    // MatMomentDateModule
   ],
   providers: [CoursesService, AddInstituteServiceService, SignInService, {
     provide: HTTP_INTERCEPTORS,
