@@ -68,9 +68,9 @@ namespace DBM.Controllers
             return Ok();
         }
         //[MultiPostParameters]
-        [HttpGet("{UserId}/{CourseName}")]
+        [HttpGet("{UserId}/{CourseId}")]
         
-        public IEnumerable<CourseEnrollmentViewModel> GetCourseEnrollments(int UserId, string CourseName)
+        public IEnumerable<CourseEnrollmentViewModel> GetCourseEnrollments(int UserId, int CourseId)
         {
             List<CourseEnrollmentViewModel> courseLst = new List<CourseEnrollmentViewModel>();
             //List<CourseEnrollment> courseLst = new List<CourseEnrollment>();
@@ -80,7 +80,7 @@ namespace DBM.Controllers
             {
                 foreach (CourseEnrollment e in db.CourseEnrollment)
                 {
-                    if (e.CourseId == db.Courses.Where(b => b.Name == CourseName).FirstOrDefault().Id)
+                    if (e.CourseId == CourseId)
                     {
                         CourseEnrollmentViewModel c = new CourseEnrollmentViewModel();
                         c.Email = db.Users.Where(b => b.Id == e.UserId).FirstOrDefault().Email;

@@ -75,6 +75,7 @@ namespace DBM.Controllers
                     if (ac.UserId == id)
                     {
                         CourseViewModel c = new CourseViewModel();
+                        c.id = db.Courses.Where(c1 => c1.Id == ac.CourseId).FirstOrDefault().Id;
                         c.name = db.Courses.Where(c1 => c1.Id == ac.CourseId).FirstOrDefault().Name;
                         c.courseCode = db.Courses.Where(c1 => c1.Id == ac.CourseId).FirstOrDefault().CourseCode;
                         courseLst.Add(c);
@@ -89,6 +90,7 @@ namespace DBM.Controllers
                     if(c.InstituteId == db.Users.Where(b=>b.Id == id).FirstOrDefault().InstituteId)
                     {
                         CourseViewModel cd= new CourseViewModel();
+                        cd.id = c.Id;
                         cd.name = c.Name;
                         cd.courseCode = c.CourseCode;
                         courseLst.Add(cd);

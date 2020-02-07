@@ -40,7 +40,7 @@ export class CoursesService {
 
   getEnrollmentRequests()
   {
-    this.http.get(this.rootURL + 'CourseEnrollment/' + localStorage.getItem('Id')+'/'+localStorage.getItem('CourseName'))
+    this.http.get(this.rootURL + 'CourseEnrollment/' + localStorage.getItem('Id')+'/'+localStorage.getItem('CourseId'))
     .toPromise()
     .then(
       res => {

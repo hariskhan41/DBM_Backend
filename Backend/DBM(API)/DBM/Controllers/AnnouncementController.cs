@@ -14,17 +14,17 @@ namespace DBM.Controllers
     public class AnnouncementController : ControllerBase
     {
         // GET: api/Announcement
-        [HttpGet("{CourseName}")]
-        public IEnumerable<AnnouncementViewModel>Get(string CourseName)
+        [HttpGet("{CourseId}")]
+        public IEnumerable<AnnouncementViewModel>Get(int CourseId)
         {
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             List<AnnouncementViewModel> lst = new List<AnnouncementViewModel>();
-            if(db.Announcement.Any(a=>a.CourseId == db.Courses.Where(b => b.Name == CourseName).FirstOrDefault().Id))
+            if(db.Announcement.Any(a=>a.CourseId == CourseId))
             {
                 foreach (Announcement a in db.Announcement)
                 {
                     AnnouncementViewModel obj = new AnnouncementViewModel();
-                    if (a.CourseId == db.Courses.Where(b => b.Name == CourseName).FirstOrDefault().Id)
+                    if (a.CourseId == CourseId)
                     {
                         obj.Title = a.Title;
                         string day = a.CreatedOn.DayOfWeek.ToString();
