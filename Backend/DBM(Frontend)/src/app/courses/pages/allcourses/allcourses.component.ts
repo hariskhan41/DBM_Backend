@@ -135,7 +135,10 @@ export class AllcoursesComponent implements OnInit {
   ViewCourse(C: Courses, form: NgForm) {
     this.service.formData = C;
     form.value.name = C.name;
+    form.value.id = C.id;
+    alert(C.id);
     localStorage.setItem('CourseName', String(C.name));
+    localStorage.setItem('CourseId', String(C.id));
     this.router.navigate(['/CourseDashboard']);
   }
 

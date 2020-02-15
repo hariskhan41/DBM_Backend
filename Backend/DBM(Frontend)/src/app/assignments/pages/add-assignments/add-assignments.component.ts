@@ -63,6 +63,7 @@ export class AddAssignmentsComponent implements OnInit {
     if (form != null)
       form.resetForm();
     this.service.formData = {
+      Id: 0,
       SubmissionDate: new Date(),
       FilePath: '',
       Title: '',

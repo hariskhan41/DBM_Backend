@@ -3,6 +3,8 @@ import { MatDateFormats } from '@angular/material';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { RouterLink } from '@angular/router';
+import { Assignment } from 'src/app/shared/CourseAssignementModelClass/assignment.model';
+import { AssignmentService } from 'src/app/shared/AssignmentService/assignment.service';
 
 export interface PeriodicElement {
   name: string;
@@ -75,12 +77,26 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AllAssignmentsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: AssignmentService) { }
+
+  lst: Assignment[];
 
   displayedColumns: string[] = ['position', 'name', 'UploadedBy', 'PostedOn', 'SubmissionDate', 'Download', 'Delete', 'Submit'];
   dataSource = ELEMENT_DATA;
 
   ngOnInit() {
+    this.service.getAssignmentList();
+
+    this.lst = this.service.list;
+    console.log("test");
+    console.log(this.service.list);
+  }
+
+  Download(A: Assignment) {
+    // alert("a");
+    // console.log(A);
+    // alert(A['id']);
+    this.service.downloadFile(A);
   }
 
 }

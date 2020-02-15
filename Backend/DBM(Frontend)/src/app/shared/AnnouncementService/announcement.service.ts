@@ -14,7 +14,7 @@ export class AnnouncementService {
     return this.http.post(this.rootURL + 'Announcement/', formData);
   }
   getAnnouncementList() {
-    this.http.get(this.rootURL + 'Announcement/' + localStorage.getItem('CourseName'))
+    this.http.get(this.rootURL + 'Announcement/' + localStorage.getItem('CourseId'))
       .toPromise()
       .then(
         res => {

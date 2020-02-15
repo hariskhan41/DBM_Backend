@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 
 using System.IO;
 using System.Net.Http.Headers;
+using Microsoft.Extensions.FileProviders;
 
 namespace DBM.Controllers
 {
@@ -28,22 +29,29 @@ namespace DBM.Controllers
 
         // GET: api/Assignment
 
-        [HttpGet]
-        public IEnumerable<AssignmentsViewModel> Get()
+        [HttpGet("{CourseId}")]
+        public IEnumerable<AssignmentsViewModel> Get(int CourseId)
         {
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             List<AssignmentsViewModel> lst = new List<AssignmentsViewModel>();
             foreach(Assignments s in db.Assignments)
             {
-                AssignmentsViewModel a = new AssignmentsViewModel();
-                a.Title = s.Title;
-                a.CreatedBy = db.Users.Where(b => b.Id == s.CreatedBy).FirstOrDefault().FirstName + " " + db.Users.Where(b => b.Id == s.CreatedBy).FirstOrDefault().LastName;
-                a.UpdatedBy = db.Users.Where(b => b.Id == s.UpdatedBy).FirstOrDefault().FirstName + " " + db.Users.Where(b => b.Id == s.UpdatedBy).FirstOrDefault().LastName;
-                //a.SubmissionDateTime = s.SubmissionDateTime;
-                a.StartDateTime = s.StartDateTime;
-                a.PostSubmissionDateTime = s.PostSubmissionDateTime;
-                a.Status = s.Status;
-                lst.Add(a);
+                if (s.CourseId == CourseId)
+                {
+                    AssignmentsViewModel a = new AssignmentsViewModel();
+                    a.Id = s.Id;
+                    a.Title = s.Title;
+                    a.CreatedBy = db.Users.Where(b => b.Id == s.CreatedBy).FirstOrDefault().FirstName + " " + db.Users.Where(b => b.Id == s.CreatedBy).FirstOrDefault().LastName;
+                    a.UpdatedBy = db.Users.Where(b => b.Id == s.UpdatedBy).FirstOrDefault().FirstName + " " + db.Users.Where(b => b.Id == s.UpdatedBy).FirstOrDefault().LastName;
+                    var d = s.SubmissionDateTime.ToString("yyyy-M-dd hh:mm");
+                    //DateTime d1 = new DateTime(d);
+                    a.SubmissionDate = s.SubmissionDateTime;
+                    a.FilePath = s.FilePath;
+                    a.StartDateTime = s.StartDateTime;
+                    a.PostSubmissionDateTime = s.PostSubmissionDateTime;
+                    a.Status = s.Status;
+                    lst.Add(a);
+                }
             }
 
             return lst.ToList();
@@ -101,11 +109,61 @@ namespace DBM.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetAssignmentFileName/{AssignmentId}")]
+        public Object GetFileName(int AssignmentId)
+        {
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            string filePath = db.Assignments.Where(a1 => a1.Id == AssignmentId).FirstOrDefault().FilePath;
+            string[] temp = filePath.Split('/');
+            int temp1 = temp.Count();
+            string fileName = temp[temp.Count() - 1];
+            return new { fileName };
+        }
+
+        [HttpGet]
+        [Route("Download/{AssignmentId}")]
+        public IActionResult DownloadFile(int AssignmentId)
+        {
+            //string v = "1.jpg";
+            //var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+            //currentDirectory = currentDirectory + "\\Resources\\Images";
+            ////var file = Path.Combine(Path.Combine(currentDirectory), fileName);
+            ////return new FileStream(file, FileMode.Open, FileAccess.Read);
+
+            //IFileProvider provider = new PhysicalFileProvider(currentDirectory);
+            //IFileInfo fileInfo = provider.GetFileInfo(fileName);
+            //var readStream = fileInfo.CreateReadStream();
+            //var mimeType = "application/vnd.ms-excel";
+            //return File(readStream, mimeType, fileName);
+
+            //var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+            //currentDirectory = currentDirectory + "\\src";
+            //var file = "D:/UET/FYP/Backend/DBM_Backend/Backend/DBM(API)/DBM/Resources/Images/1.jpg";
+            //return new FileStream(file, FileMode.Open, FileAccess.Read);
+
+            //var file = "D:/UET/FYP/Backend/DBM_Backend/Backend/DBM(API)/DBM/Resources/Images/1.jpg";
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+            currentDirectory = currentDirectory + "\\Resources\\Images";
+            string filePath = db.Assignments.Where(a1 => a1.Id == AssignmentId).FirstOrDefault().FilePath;
+            string[] temp = filePath.Split('/');
+            int temp1 = temp.Count();
+            string fileName = temp[temp.Count() - 1];
+            //var file = Path.Combine(Path.Combine(currentDirectory), fileName);
+            byte[] bytes = System.IO.File.ReadAllBytes(currentDirectory + "\\" + fileName);
+            var p = "a";
+            return new FileContentResult(bytes, "application/octet")
+            {
+                FileDownloadName = fileName
+            };
+        }
+
 
         // POST: api/Assignment
         [HttpPost, DisableRequestSizeLimit]
-        [Route("SaveAssignment/{CourseName}")]
-        public IActionResult Post([FromBody] AssignmentsViewModel val, string CourseName)
+        [Route("SaveAssignment/{CourseId}")]
+        public IActionResult Post([FromBody] AssignmentsViewModel val, int CourseId)
         {
             string tempFilePath = val.FilePath;
             val.FilePath = "Resources/Images/";
@@ -124,7 +182,7 @@ namespace DBM.Controllers
             ass.UpdatedBy = db.Users.Where(u => u.Email.Equals(val.Email)).FirstOrDefault().Id; ;
             ass.CreatedOn = DateTime.Now;
             ass.UpdatedOn = DateTime.Now;
-            ass.CourseId = db.Courses.Where(c => c.Name.Equals(CourseName)).FirstOrDefault().Id;
+            ass.CourseId = db.Courses.Where(c => c.Id == CourseId).FirstOrDefault().Id;
             db.Assignments.Add(ass);
 
             db.SaveChanges();
