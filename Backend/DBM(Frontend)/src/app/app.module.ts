@@ -46,12 +46,14 @@ import { CoursesService } from './shared/CoursesService/courses.service';
 
 
 
+
 @NgModule({
 
   declarations: [
     AppComponent,
 
     MainPageComponent,
+
 
 
 

@@ -39,7 +39,7 @@ export class SignInService {
     this.http.get(this.rootURL + '/UserProfile/RoleDetails/' + id).toPromise().then(
       (res:any) => {
         this.lstTemp = res as SignUp[];
-        console.log(this.lstTemp[0]['designation']);
+        //console.log(this.lstTemp[0]['designation']);
         this.designation = this.lstTemp[0]['designation'];
         // alert("stop");
       }

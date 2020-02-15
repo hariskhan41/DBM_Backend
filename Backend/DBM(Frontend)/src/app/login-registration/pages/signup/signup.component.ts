@@ -51,7 +51,7 @@ export class SignupComponent implements OnInit {
     this.service.getInstitutes().subscribe(
       data => {
         this.myInstitute = data as institute[];
-        alert(this.myInstitute[0]["id"]);
+        //alert(this.myInstitute[0]["id"]);
       },
       (err: HttpErrorResponse) => {
         console.log(err.message);
@@ -95,7 +95,7 @@ export class SignupComponent implements OnInit {
         console.log(err);
         this.temp1 = err;
         console.error(err);
-        alert(this.temp1.error["EmailAddress"]);
+        //alert(this.temp1.error["EmailAddress"]);
         this.p = this.temp1.error["EmailAddress"];
       }
     );

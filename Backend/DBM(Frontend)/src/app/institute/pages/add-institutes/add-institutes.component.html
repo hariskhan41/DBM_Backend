@@ -1,27 +1,7 @@
-<!-- <form #form="ngForm" (submit)="onSubmit(form)">
-    <mat-card class="card-login">
-        <mat-card-title>Add Institute</mat-card-title>
-        <br>
-        <mat-card-content>
-            <div class="form-group">
-                <mat-form-field color="accent" appearance="outline" class="form-input">
-                    <mat-label>Institute Name</mat-label>
-                    <input matInput name="InstituteName" #InstituteName="ngModel"
-                        [ngModel]="service.formData.InstituteName" class="form-control" required>
-                </mat-form-field>
-            </div>
-
-            <br>
-            <button type="submit" mat-raised-button class="btn-login" color="primary">Add</button>
-            <br>
-        </mat-card-content>
-    </mat-card>
-</form> -->
 
 <form #form="ngForm" (submit)="onSubmit(form)">
-
-
-
+    
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="20px">
     <mat-card class="card-login">
         <mat-card-title>Add Institute</mat-card-title>
         <br>
@@ -64,5 +44,6 @@
             <br>
         </mat-card-content>
     </mat-card>
+</div>
 
 </form>

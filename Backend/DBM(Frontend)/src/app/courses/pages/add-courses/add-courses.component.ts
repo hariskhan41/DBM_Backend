@@ -3,6 +3,7 @@ import { VERSION } from '@angular/platform-browser-dynamic';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { CoursesService } from 'src/app/shared/CoursesService/courses.service';
 import { SignInService } from 'src/app/shared/SignInService/sign-in.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class AddCoursesComponent implements OnInit {
 
   userDetails;
   //form: FormGroup;
-  constructor(private service: CoursesService, private Service2: SignInService) {
+  constructor(private service: CoursesService, private Service2: SignInService, private toaster:ToastrService) {
 
   }
 
@@ -61,6 +62,7 @@ export class AddCoursesComponent implements OnInit {
     // console.log(form.value);
     if (this.service.formData.id == 0) {
       this.insertRecord(form);
+      this.toaster.success('Course Added Successfully', '');
     }
     else {
       this.updateRecord(form);

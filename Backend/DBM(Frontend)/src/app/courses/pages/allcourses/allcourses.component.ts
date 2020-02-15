@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SignInService } from 'src/app/shared/SignInService/sign-in.service';
 import { NgForm } from '@angular/forms';
 
+
 @Component({
   selector: 'app-allcourses',
   templateUrl: './allcourses.component.html',

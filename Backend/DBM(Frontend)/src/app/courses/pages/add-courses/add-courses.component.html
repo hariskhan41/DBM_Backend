@@ -29,6 +29,7 @@
 </mat-card> -->
 
 <form #form="ngForm" autocomplete="off" (submit)=onSubmit(form)>
+  <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="20px">
   <mat-card class="card-login">
     <mat-card-title>Add Course</mat-card-title>
     <br>
@@ -89,4 +90,6 @@
       <br>
     </mat-card-content>
   </mat-card>
+  </div>
+  
 </form>

@@ -6,7 +6,7 @@
 <mat-card class="card-login">
 
     <mat-card-content>
-        <table id="Institutes">
+        <table id="Institutes" class="table">
             <col width="100px">
             <col width="100px">
             <col width="100px">
@@ -22,8 +22,8 @@
                 <td>{{e.userName}}</td>
                 <td>{{e.email}}</td>
                 <td>
-                        <a type="submit" mat-raised-button style="margin-left:50px"
-                        (click)="EnrolInCourse(course, form)">Not Enrolled</a>
+                        <!-- <a type="submit" mat-raised-button style="margin-left:50px"
+                        (click)="EnrolInCourse(course, form)">Not Enrolled</a> -->
                     <a routerLink='/AddInstitutes'><mat-icon class="icon">done</mat-icon></a>
 
                 </td>

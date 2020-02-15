@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { HttpEventType, HttpClient } from '@angular/common/http';
 import { AssignmentService } from 'src/app/shared/AssignmentService/assignment.service';
 import { SignInService } from 'src/app/shared/SignInService/sign-in.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-assignments',
   templateUrl: './add-assignments.component.html',
@@ -23,7 +23,7 @@ export class AddAssignmentsComponent implements OnInit {
 
   // }
 
-  constructor(private service: AssignmentService, private http: HttpClient, private service2: SignInService) {
+  constructor(private service: AssignmentService, private http: HttpClient, private service2: SignInService, private toastr: ToastrService) {
 
   }
 
@@ -80,8 +80,8 @@ export class AddAssignmentsComponent implements OnInit {
         console.log(this.temp);
       }
     );
-
     this.insertRecord(form);
+    this.toastr.success('Assignment Uploaded Successfully', '');
   }
 
   insertRecord(form: NgForm) {

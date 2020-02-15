@@ -24,6 +24,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginRegistrationComponent } from './pages/login-registration.component';
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
+import { SignUpRequestsComponent } from './pages/sign-up-requests/sign-up-requests.component';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -36,7 +37,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, LoginRegistrationComponent],
+  declarations: [LoginComponent, SignupComponent, LoginRegistrationComponent, SignUpRequestsComponent],
 
   imports: [
     CommonModule,
