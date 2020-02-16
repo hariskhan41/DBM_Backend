@@ -17,8 +17,8 @@ namespace DBM.Controllers
     {
 
         [HttpGet]
-        [Route("Approve/{id}")]
-        public void Approve(int id)
+        [Route("Approve/{value}")]
+        public void Approve(string value)
         {
 
         }
