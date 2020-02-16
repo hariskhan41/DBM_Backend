@@ -21,14 +21,14 @@ export class SignUpRequestsComponent implements OnInit {
    
   }
 
-  ApproveRequest(R: TeacherRequests) {
+  ApproveTeacherRequest(R: TeacherRequests) {
     this.service.formData = R;
     console.log(this.service.formData);
     this.service.postEnrolmentRequests(R);
   }
   ApproveStudentsRequest(I: StudentsRequests) {
     this.service1.formData = I;
-    //console.log(this.service1.formData);
+    console.log(this.service1.formData);
     this.service1.postEnrolmentRequests(I);
   }
 

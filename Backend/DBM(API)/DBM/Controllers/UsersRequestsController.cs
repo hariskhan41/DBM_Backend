@@ -16,6 +16,13 @@ namespace DBM.Controllers
     public class UsersRequestsController : ControllerBase
     {
 
+        [HttpGet]
+        [Route("Approve/{id}")]
+        public void Approve(int id)
+        {
+
+        }
+
         // GET: api/UsersRequests
         // [HttpGet("GetAllStudentsRequests/{InstituteId}")]
         [HttpGet]
@@ -106,15 +113,7 @@ namespace DBM.Controllers
         }
     
     // POST: api/UsersRequests
-        [HttpPost]
-        [Route("ApproveRequest")]
-        public IActionResult Post([FromBody] StudentsRequestsViewModel user)
-        {
-
-            //string name = "hello";
-
-            return Ok();
-        }
+        
 
         /*[HttpPost]
         [Route("ApproveTeacherRequest")]

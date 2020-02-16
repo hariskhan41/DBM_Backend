@@ -22,6 +22,15 @@ export class StudentsRequestsService {
   postEnrolmentRequests(formData: StudentsRequests) {
     //alert("aa");
     //return this.http.post(this.rootURL + '/UsersRequests/ApproveRequest', formData);
-    return this.http.post(this.rootURL + '/StudentsRequests', formData);
+    console.log(formData);
+    // return this.http.post(this.rootURL + '/UsersRequests/Approve', 3);
+    return this.http.get(this.rootURL + '/UsersRequests/Approve/4')
+    .toPromise()
+    .then(
+      res =>
+      {
+        alert("approved");
+      }
+    );
   }
 }
