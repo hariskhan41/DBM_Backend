@@ -26,3 +26,10 @@
     width: 90%;
     height: 45px;
 }
+
+.btn-AddMembers {
+  background-color: #007a5a;
+    color: white;
+    width: 40%;
+    height: 45px;
+}

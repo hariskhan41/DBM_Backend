@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { saveAs } from 'file-saver';
 import { DatePipe } from '@angular/common';
+import { AssignmentSubmission } from '../CourseAssignmentSubmissionModelClass/assignment-submission.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,12 @@ import { DatePipe } from '@angular/common';
 export class AssignmentService {
 
   formData: Assignment;
+  formDataSubmitAssignment: AssignmentSubmission;
   readonly rootURL = 'http://localhost:3845/api/';
   s: String = null;
   list: Assignment[];
+
+  
 
 
   constructor(public http: HttpClient) { }
