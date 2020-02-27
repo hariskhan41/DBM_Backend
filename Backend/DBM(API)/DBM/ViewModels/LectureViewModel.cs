@@ -7,23 +7,19 @@ namespace DBM.ViewModels
 {
     public class LectureViewModel
     {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
 
         public string FilePath { get; set; }
 
-        public string Title { get; set; }
+        public int courseId { get; set; }
 
-        public int CreatedBy { get; set; }
-
-        public int UpdatedBy { get; set; }
-
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime UpdatedOn { get; set; }
-
-        public string Email { get; set; }
-
-        public string CourseName { get; set; }
         public int LectureId { get; set; }
+
+        public string userId { get; set; }
+
+       // public int CourseId { get; set; }
 
 
 

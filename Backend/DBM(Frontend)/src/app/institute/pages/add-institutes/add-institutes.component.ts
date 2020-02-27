@@ -22,7 +22,7 @@ export class AddInstitutesComponent implements OnInit {
     // if (this.service.formData == null){
     //   this.resetForm();
     // }
-    alert(this.service.editFlag);
+   //alert(this.service.editFlag);
     if (this.service.editFlag == false)
     {
       this.resetForm();

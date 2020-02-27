@@ -38,6 +38,33 @@ export class CoursesService {
     return this.http.post(this.rootURL + 'CourseEnrollment/EnrolmentPending', formData);
   }
 
+  ApproveRequests(value:string) {
+    //alert("aa");
+    //return this.http.post(this.rootURL + '/UsersRequests/ApproveRequest', formData);
+   // console.log(formData);
+    return this.http.get(this.rootURL + 'CourseEnrollment/ApproveRequest/'+value)
+    .toPromise()
+    .then(
+      res =>
+      {
+        this.getEnrollmentRequests(); 
+      }
+    );
+  }
+
+  DisApproveRequests(value:string) {
+    //alert("aa");
+    //return this.http.post(this.rootURL + '/UsersRequests/ApproveRequest', formData);
+   // console.log(formData);
+    return this.http.delete(this.rootURL + 'CourseEnrollment/'+value)
+    .toPromise()
+    .then(
+      res =>
+      {
+        this.getEnrollmentRequests(); 
+      }
+    );
+  }
   getEnrollmentRequests()
   {
     this.http.get(this.rootURL + 'CourseEnrollment/' + localStorage.getItem('Id')+'/'+localStorage.getItem('CourseId'))

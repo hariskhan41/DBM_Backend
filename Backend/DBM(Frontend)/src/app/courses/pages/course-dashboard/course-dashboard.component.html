@@ -80,9 +80,13 @@
           <i class='fas fa-chalkboard-teacher' style="margin-right: 8px"></i>
           Lectures
         </ng-template>
+        <br><br>
+        <a routerLink='/AddLecture'><button mat-raised-button class="btn-add" color="primary">Upload
+            Lecture</button></a>
+        <br><br>
         <app-lectures></app-lectures>
       </mat-tab>
-      <mat-tab>
+      <!-- <mat-tab>
         <ng-template mat-tab-label class="cl">
           <mat-icon class="example-tab-icon">library_books</mat-icon>
           Notes
@@ -92,7 +96,7 @@
             Notes</button></a>
         <br><br>
         <app-all-notes></app-all-notes>
-      </mat-tab>
+      </mat-tab> -->
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon class="example-tab-icon">library_books</mat-icon>

@@ -2,17 +2,15 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { HttpEventType, HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 import { LectureService } from 'src/app/shared/LectureServiceClass/lecture.service';
-import { SignInService } from 'src/app/shared/SignInService/sign-in.service';
-import { SignUpService } from 'src/app/shared/SignUpService/sign-up.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-notes',
-  templateUrl: './add-notes.component.html',
-  styleUrls: ['./add-notes.component.css']
+  selector: 'app-upload-lecture-video',
+  templateUrl: './upload-lecture-video.component.html',
+  styleUrls: ['./upload-lecture-video.component.css']
 })
-export class AddNotesComponent implements OnInit {
+export class UploadLectureVideoComponent implements OnInit {
   public progress: number;
   public message: string;
   @Output() public onUploadFinished = new EventEmitter();
@@ -20,49 +18,37 @@ export class AddNotesComponent implements OnInit {
   form: FormGroup;
   selectedFile = null;
   temp: String = null;
-  
-  userDetails;
-  constructor(private service: LectureService,private service2:SignInService, private http: HttpClient,  private toastr: ToastrService, private router: Router) {
+  //toastr: any;
 
-  }
+  constructor(private service: LectureService, private http: HttpClient,  private toastr: ToastrService, private router: Router) { }
+
   onFileSelected(event) {
-    console.log(event);
+    //console.log(event);
     this.selectedFile = event.target.files[0];
     //this.onUploadv();
   }
 
-  ngOnInit() {
+
+ ngOnInit() {
     this.resetForm();
-    this.service2.getUserProfile().subscribe(
-      res => {
-        //console.log(res);
-        this.userDetails = res;
-        //alert("res");
-      },
-      err => {
-        console.log(err);
-        //alert("err");
-      }
-    );
    
   }
 
   resetForm(form?: NgForm) {
     if (form != null)
       form.resetForm();
-    this.service.formDataNotes = {
+    this.service.formDataVideo = {
       Id: 0,
       FilePath: '',
       Name: '',
       courseId: '',
-      lectureId:'',
-      userId:''
+      lectureId:''
     }
   }
 
   onSubmit(form: NgForm) {
     
-    this.service.onUploadNotes(this.selectedFile).subscribe(
+    this.service.onUploadVideo(this.selectedFile).subscribe(
       res => {
         // console.log(res);
         // this.temp = res.toString();
@@ -70,7 +56,7 @@ export class AddNotesComponent implements OnInit {
       }
     );
     this.insertRecord(form);
-    this.toastr.success('Notes Uploaded Successfully', '');
+    this.toastr.success('Assignment Uploaded Successfully', '');
   }
 
   insertRecord(form: NgForm) {
@@ -80,11 +66,10 @@ export class AddNotesComponent implements OnInit {
     form.value.FilePath = this.selectedFile.name;
     form.value.courseId = localStorage.getItem('CourseId');
     form.value.lectureId = localStorage.getItem('LectureId');
-    form.value.userId =  this.userDetails.email;
-    this.service.postUploadNotes(form.value).subscribe(
+    this.service.postUploadLecture(form.value).subscribe(
       res => {
         this.resetForm(form);
-        //this.router.navigate(['/LectureVideos']);
+        this.router.navigate(['/LectureVideos']);
       },
       err => {
         console.log(err);

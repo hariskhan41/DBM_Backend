@@ -12,7 +12,7 @@ export class SignUpRequestsComponent implements OnInit {
   
 
   constructor(private service : TeachersRequestsService, private service1 : StudentsRequestsService) { }
-
+  email:string;
   ngOnInit() {
 
   this.service1.getStudentRequestsList();
@@ -21,16 +21,26 @@ export class SignUpRequestsComponent implements OnInit {
    
   }
 
-  ApproveTeacherRequest(R: TeacherRequests) {
-    this.service.formData = R;
-    console.log(this.service.formData);
-    this.service.postEnrolmentRequests(R);
-  }
-  ApproveStudentsRequest(I: StudentsRequests) {
-    this.service1.formData = I;
-    console.log(this.service1.formData);
-    this.service1.postEnrolmentRequests(I);
+  ApproveTeacherRequest(id:string) {
+    
+    this.service.ApproveRequests(id);
   }
 
+  DisApproveTeacherRequest(id:string)
+  {
+    this.service.DisapproveRequests(id);
+  }
+
+  DisApproveStudentRequest(id:string)
+  {
+    this.service1.DisapproveRequests(id);
+  }
+  ApproveStudentsRequest(id:string) {
+    //this.service1.formData = I;
+    //console.log(this.service.formData);
+    //this.email = this.service.formData.Email;
+    //console.log(id);
+    this.service1.ApproveRequests(id);
+  }
 
 }

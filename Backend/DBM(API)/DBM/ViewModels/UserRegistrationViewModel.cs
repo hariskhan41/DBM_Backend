@@ -20,7 +20,6 @@ namespace DBM.ViewModels
         public string LastName { get; set; }
 
 
-
         public string Cnic { get; set; }
 
         public string Email { get; set; }

@@ -1,35 +1,42 @@
-<mat-card class="card-lec">
-    <table mat-table class="mat-elevation-z8" [dataSource]="dataSource" class="mat-elevation-z8">
-        <!-- Position Column -->
-        <ng-container matColumnDef="position">
-            <mat-header-cell *matHeaderCellDef class="head"> No. </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-        </ng-container>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef class="head"> Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-        </ng-container>
+<br>
+<mat-card class="card-login">
 
-        <!-- Weight Column -->
-        <ng-container matColumnDef="Edit">
-            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <mat-icon class="icon">play_circle_filled</mat-icon>
-                <!-- <button mat-raised-button class="btn-Play">Play</button> -->
-            </mat-cell>
-        </ng-container>
+    <mat-card-content>
+        <table id="Institutes" class="table">
+            <col width="100px">
+            <col width="100px">
+            <col width="100px">
+            <col width="100px">
+            <col width="100px">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Play</th>
+                <th>Upload</th>
+                <th>Delete</th>
+            </tr>
+            <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+            <tr *ngFor="let e of service.list">
+                <input type="hidden" name="Id" value="{{e.courseId}}">
+               
+                <td>{{e.id}}</td>
+                <td>{{e.name}}</td>
+                <td>
+                        <!-- <a type="submit" mat-raised-button style="margin-left:50px"
+                        (click)="EnrolInCourse(course, form)">Not Enrolled</a> -->
+                    <!-- <a (click)="ApproveRequest(e.userId)"><mat-icon class="icon">play_circle_filled</mat-icon></a> -->
+                    <a routerLink='/LectureNotes'>Notes</a>
 
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="Delete">
-            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <mat-icon class="icon">delete_sweep</mat-icon>
-            </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </table>
+                </td>
+                <td>
+                    <a  (click)="ViewVideo(e)">Videos</a>
+                </td>
+                <td>
+                    <a (click)="DisApproveRequest(e.userId)"><mat-icon class="icon">delete_sweep</mat-icon></a>
+                </td>
+            </tr>
+        </table>
+    </mat-card-content>
 </mat-card>

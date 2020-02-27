@@ -39,6 +39,9 @@ import { EnrollmentRequestsComponent } from './pages/enrollment-requests/enrollm
 // import { AllCoursesComponent } from './pages/all-courses/all-courses.component';
 import { AddAnnouncementComponent } from './pages/add-announcement/add-announcement.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { AddLecturesComponent } from './pages/add-lectures/add-lectures.component';
+import { UploadLectureVideoComponent } from './pages/upload-lecture-video/upload-lecture-video.component';
+import { AllVideosComponent } from './pages/all-videos/all-videos.component';
 
 
 
@@ -61,7 +64,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     AssignCourseComponent,
     EnrollmentRequestsComponent,
 
-    AddAnnouncementComponent
+    AddAnnouncementComponent,
+
+    AddLecturesComponent,
+
+    UploadLectureVideoComponent,
+
+    AllVideosComponent
   ],
   exports: [
     CoursesComponent,

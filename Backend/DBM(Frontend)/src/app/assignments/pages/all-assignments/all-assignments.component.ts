@@ -88,8 +88,6 @@ export class AllAssignmentsComponent implements OnInit {
     this.service.getAssignmentList();
 
     this.lst = this.service.list;
-    console.log("test");
-    console.log(this.service.list);
   }
 
   Download(A: Assignment) {

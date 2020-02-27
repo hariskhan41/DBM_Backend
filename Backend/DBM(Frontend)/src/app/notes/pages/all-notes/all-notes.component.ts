@@ -1,22 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IconName } from '@fortawesome/fontawesome-common-types';
 import { MatIcon } from '@angular/material';
+import { LectureService } from 'src/app/shared/LectureServiceClass/lecture.service';
+import { Notes } from 'src/app/shared/LectureNotesModelClass/notes.model';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  Edit: string;
-  Delete: string;
-  UploadedBy: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Lecture 1', UploadedBy: 'ABC', Edit: '', Delete: '' },
-  { position: 2, name: 'Lecture 2', UploadedBy: 'ABC', Edit: '', Delete: '' },
-  { position: 3, name: 'Lecture 3', UploadedBy: 'ABC', Edit: '', Delete: '' },
-  { position: 4, name: 'Lecture 4', UploadedBy: 'ABC', Edit: '', Delete: '' },
-  { position: 5, name: 'Lecture 5', UploadedBy: 'ABC', Edit: '', Delete: '' },
-];
+
 
 
 @Component({
@@ -26,12 +15,18 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AllNotesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:LectureService) { }
 
-  displayedColumns: string[] = ['position', 'name', 'UploadedBy', 'Edit', 'Delete'];
-  dataSource = ELEMENT_DATA;
 
   ngOnInit() {
+    this.service.getLecturesNotes();
+  }
+
+  Download(A: Notes) {
+    // alert("a");
+    // console.log(A);
+    //alert(A['id']);
+    this.service.downloadNotes(A);
   }
 
 }
