@@ -17,10 +17,38 @@ namespace DBM.Controllers
     {
 
         [HttpGet]
-        [Route("Approve/{value}")]
-        public void Approve(string value)
+        [Route("ApproveStudent/{id}")]
+        public IActionResult ApproveStudent(string id)
         {
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            var user = db.Users.Where(b => b.Id == Convert.ToInt32(id)).SingleOrDefault();
+            string Name = user.FirstName + " " + user.LastName;
+            string Email = user.Email;
+            string Body = "Your request has been approved";
+            if (SendEmail(Name, Email, Body))
+            {
+                user.LoginStatus = 1;
+            }
+            db.SaveChanges();
+            return Ok();
+           // .LoginStatus = 1;
+        }
 
+        [HttpGet]
+        [Route("ApproveTeacher/{id}")]
+        public IActionResult ApproveTeacher(string id)
+        {
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            var user = db.Users.Where(b => b.Id == Convert.ToInt32(id)).SingleOrDefault();
+            string Name = user.FirstName + " " + user.LastName;
+            string Email = user.Email;
+            string Body = "Your request has been approved";
+            if (SendEmail(Name, Email, Body))
+            {
+                user.LoginStatus = 1;
+            }
+            db.SaveChanges();
+            return Ok();
         }
 
         // GET: api/UsersRequests
@@ -76,33 +104,23 @@ namespace DBM.Controllers
             return lst;
         }
 
-        public bool SendEmail(string Name, string Email)
+        public bool SendEmail(string Name, string Email, string Body)
         {
 
             try
             {
                 // Credentials
-                var credentials = new NetworkCredential("ayeshaatif7925@gmail.com", "Ayesha*8899");
-                // Mail message
-                var mail = new MailMessage()
-                {
-                    From = new MailAddress("ayeshaatif7925@gmail.com"),
-                    Subject = "LMS login Request",
-                    Body = "your request is accepted successfully"
-                };
-                mail.IsBodyHtml = true;
-                mail.To.Add(new MailAddress(Email));
-                // Smtp client
-                var client = new SmtpClient()
-                {
-                    Port = 587,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Host = "smtp.gmail.com",
-                    EnableSsl = true,
-                    Credentials = credentials
-                };
-                client.Send(mail);
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                mail.From = new MailAddress("harriskhaan41@gmail.com");
+                mail.To.Add(Email);
+                mail.Subject ="Approval Email";
+                mail.Body = Body;
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("harriskhaan41@gmail.com", "Ashi*123");
+                SmtpServer.EnableSsl = true;
+                SmtpServer.Timeout = 20000;
+                SmtpServer.Send(mail);
                 return true;
             }
             catch (System.Exception e)
@@ -133,8 +151,38 @@ namespace DBM.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            var user = db.Users.Where(b => b.Id == id).SingleOrDefault();
+            string Name = user.FirstName + " " + user.LastName;
+            string Email = user.Email;
+            string message = "Your request has been disapproved";
+            db.Users.Remove(user);
+            if(SendEmail(Name, Email, message))
+            {
+                db.SaveChanges();
+            }
+            return Ok();
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete]
+        [Route("DeleteTeacher/{id}")]
+        public IActionResult DeleteTeacher(int id)
+        {
+
+            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+            var user = db.Users.Where(b => b.Id == id).SingleOrDefault();
+            string Name = user.FirstName + " " + user.LastName;
+            string Email = user.Email;
+            string message = "Your request has been disapproved";
+            db.Users.Remove(user);
+            if (SendEmail(Name, Email, message))
+            {
+                db.SaveChanges();
+            }
+            return Ok();
         }
     }
 }

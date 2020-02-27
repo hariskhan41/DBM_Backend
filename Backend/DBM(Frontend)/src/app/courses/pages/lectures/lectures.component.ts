@@ -1,21 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IconName } from '@fortawesome/fontawesome-common-types';
 import { MatIcon } from '@angular/material';
+import { LectureService } from 'src/app/shared/LectureServiceClass/lecture.service';
+import { Lecture } from 'src/app/shared/LectureModelClass/lecture.model';
+import { Router } from '@angular/router';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  Edit: string;
-  Delete: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Lecture 1', Edit: '', Delete: ''},
-  { position: 2, name: 'Lecture 2', Edit: '', Delete: ''},
-  { position: 3, name: 'Lecture 3', Edit: '', Delete: ''},
-  { position: 4, name: 'Lecture 4', Edit: '', Delete: ''},
-  { position: 5, name: 'Lecture 5', Edit: '', Delete: ''},
-];
 
 @Component({
   selector: 'app-lectures',
@@ -24,12 +13,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class LecturesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:LectureService, private router: Router) { }
 
-  displayedColumns: string[] = ['position', 'name', 'Edit', 'Delete'];
-  dataSource = ELEMENT_DATA;
+  
 
   ngOnInit() {
+    this.service.getLecturesList();
   }
+  ViewVideo(C: Lecture) {
+    this.service.formData = C;
+    alert(C.id);
+    //localStorage.setItem('CourseName', String(C.name));
+    localStorage.setItem('LectureId', String(C.id));
+    this.router.navigate(['/LectureVideos']);
+  }
+  
+
+  
 
 }

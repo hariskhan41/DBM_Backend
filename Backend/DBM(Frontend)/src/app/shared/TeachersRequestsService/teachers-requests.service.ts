@@ -22,7 +22,31 @@ export class TeachersRequestsService {
     });
   }
 
-  postEnrolmentRequests(formData: TeacherRequests) {
-    return this.http.post(this.rootURL + '/UsersRequests/ApproveTeacherRequest/', formData);
+  ApproveRequests(value:string) {
+    //alert("aa");
+    //return this.http.post(this.rootURL + '/UsersRequests/ApproveRequest', formData);
+   // console.log(formData);
+    return this.http.get(this.rootURL + '/UsersRequests/ApproveTeacher/'+value)
+    .toPromise()
+    .then(
+      res =>
+      {
+        this.getTeacherRequestsList();
+      }
+    );
+  }
+
+  DisapproveRequests(value:string) {
+    //alert("aa");
+    //return this.http.post(this.rootURL + '/UsersRequests/ApproveRequest', formData);
+   // console.log(formData);
+    return this.http.delete(this.rootURL + '/UsersRequests/DeleteTeacher/'+value)
+    .toPromise()
+    .then(
+      res =>
+      {
+        this.getTeacherRequestsList();
+      }
+    );
   }
 }

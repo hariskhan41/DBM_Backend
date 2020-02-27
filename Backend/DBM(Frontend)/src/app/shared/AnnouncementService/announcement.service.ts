@@ -18,8 +18,8 @@ export class AnnouncementService {
       .toPromise()
       .then(
         res => {
-          this.list = res as Announcement[];
-          console.log(res);
+          // this.list = res as Announcement[];
+          // console.log(res);
         }
       );
   }

@@ -13,95 +13,74 @@ namespace DBM.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LectureController : ControllerBase
+    public class NotesController : ControllerBase
     {
-        // GET: api/Lecture
-        [HttpGet("{courseId}")]
-        public IEnumerable<Lectures> Get(int courseId)
+        // GET: api/Notes
+        [HttpGet]
+        public IEnumerable<string> Get()
         {
-            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
-            return db.Lectures.Where(b => b.CourseId == courseId).ToList();
-
+            return new string[] { "value1", "value2" };
         }
 
         [HttpGet]
         [Route("Download/{Id}")]
         public IActionResult DownloadFile(int Id)
         {
-            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
-            var currentDirectory = System.IO.Directory.GetCurrentDirectory();
-            currentDirectory = currentDirectory + "\\Resources\\Videos";
-            string filePath = db.Video.Where(a1 => a1.Id == Id).FirstOrDefault().VideoFilePath;
-            string[] temp = filePath.Split('/');
-            int temp1 = temp.Count();
-            string fileName = temp[temp.Count() - 1];
-            //var file = Path.Combine(Path.Combine(currentDirectory), fileName);
-            byte[] bytes = System.IO.File.ReadAllBytes(currentDirectory + "\\" + fileName);
-            var p = "a";
-            return new FileContentResult(bytes, "application/octet")
+            try
             {
-                FileDownloadName = fileName
-            };
+                DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
+                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                currentDirectory = currentDirectory + "\\Resources\\Notes";
+                string filePath = db.Notes.Where(a1 => a1.Id == Id).FirstOrDefault().FilePath;
+                string[] tempo = filePath.Split('/');
+                // int temp1 = tempo.Count();
+                string fileName = tempo[tempo.Count() - 1];
+                //var file = Path.Combine(Path.Combine(currentDirectory), fileName);
+                byte[] bytes = System.IO.File.ReadAllBytes(currentDirectory + "\\" + fileName);
+                var p = "a";
+                return new FileContentResult(bytes, "application/octet")
+                {
+                    FileDownloadName = fileName
+                };
+            }
+            catch(Exception e)
+            {
+                throw (e);
+            }
+           
         }
 
         [HttpGet]
-        [Route("GetVideoFileName/{Id}")]
-        public Object GetFileName(int Id)
+        [Route("GetNotesFileName/{Id}")]
+        public Object GetNotesFileName(int Id)
         {
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
-            string filePath = db.Video.Where(a1 => a1.Id == Id).FirstOrDefault().VideoFilePath;
+            string filePath = db.Notes.Where(a1 => a1.Id == Id).FirstOrDefault().FilePath;
             string[] temp = filePath.Split('/');
             int temp1 = temp.Count();
             string fileName = temp[temp.Count() - 1];
             return new { fileName };
         }
         [HttpGet]
-        [Route("getLectureVideos/{lectureId}")]
-        public IEnumerable<LectureViewModel> getLectureVideos(int lectureId)
+        [Route("getLectureNotes/{lectureId}")]
+        public IEnumerable<LectureViewModel> getLectureNotes(int lectureId)
         {
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
             List<LectureViewModel> list = new List<LectureViewModel>();
-            foreach(Video v in db.Video)
+            foreach (Notes v in db.Notes)
             {
-                if(v.Lectureid == lectureId)
+                if (v.Lectureid == lectureId)
                 {
                     LectureViewModel lc = new LectureViewModel();
-                    lc.Name = v.Titel;
+                    lc.Name = v.Title;
                     lc.Id = v.Id;
-                    lc.FilePath = v.VideoFilePath;
+                    lc.FilePath = v.FilePath;
                     list.Add(lc);
                 }
             }
             return list;
 
         }
-
-        // GET: api/Lecture/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        // POST: api/Lecture
-        [HttpPost]
-        public IActionResult Post([FromBody] LectureViewModel obj)
-        {
-            DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
-            Lectures l = new Lectures();
-            if(!db.Courses.Any(b=>b.Id == obj.courseId))
-            {
-                ModelState.AddModelError("", "Course with course id doesn't exist");
-                return BadRequest(ModelState);
-            }
-
-            l.CourseId = obj.courseId;
-            l.Name = obj.Name;
-            db.Add(l);
-            db.SaveChanges();
-            return Ok();
-        }
-
         [HttpPost, DisableRequestSizeLimit]
         [Route("Upload")]
         public IActionResult Upload()
@@ -109,7 +88,7 @@ namespace DBM.Controllers
             try
             {
                 var file = Request.Form.Files[0];
-                var folderName = Path.Combine("Resources", "Videos");
+                var folderName = Path.Combine("Resources", "Notes");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
                 if (file.Length > 0)
@@ -138,25 +117,32 @@ namespace DBM.Controllers
 
 
         [HttpPost]
-        [Route("UploadLectureVideo")]
-        public IActionResult UploadLectureVideo([FromBody] LectureViewModel obj)
+        [Route("UploadLectureNotes")]
+        public IActionResult UploadLectureNotes([FromBody] LectureViewModel obj)
         {
 
             string tempFilePath = obj.FilePath;
-            obj.FilePath = "Resources/Videos/";
+            obj.FilePath = "Resources/Notes/";
             obj.FilePath = obj.FilePath + tempFilePath;
             DigitalBoardMarkerContext db = new DigitalBoardMarkerContext();
-            Video v = new Video();
+            Notes v = new Notes();
             v.CourseId = obj.courseId;
-            v.Titel = obj.Name;
+            v.Title = obj.Name;
             v.Lectureid = obj.LectureId;
-            v.VideoFilePath = obj.FilePath;
+            v.FilePath = obj.FilePath;
+            v.UpdatedBy = db.Users.Where(a=>a.Email == obj.userId).FirstOrDefault().Id;
+            v.CreatedBy = db.Users.Where(a => a.Email == obj.userId).FirstOrDefault().Id;
+            v.UpdatedOn = DateTime.Now;
+            v.CreatedOn = DateTime.Now;
             db.Add(v);
             db.SaveChanges();
             return Ok();
         }
 
-        // PUT: api/Lecture/5
+        // POST: api/Notes
+       
+
+        // PUT: api/Notes/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {

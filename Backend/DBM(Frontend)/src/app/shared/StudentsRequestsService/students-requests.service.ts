@@ -23,12 +23,25 @@ export class StudentsRequestsService {
     //alert("aa");
     //return this.http.post(this.rootURL + '/UsersRequests/ApproveRequest', formData);
    // console.log(formData);
-    return this.http.get(this.rootURL + '/UsersRequests/Approve/'+value)
+    return this.http.get(this.rootURL + '/UsersRequests/ApproveStudent/'+value)
     .toPromise()
     .then(
       res =>
       {
-        alert("approved");
+        this.getStudentRequestsList();
+      }
+    );
+  }
+  DisapproveRequests(value:string) {
+    //alert("aa");
+    //return this.http.post(this.rootURL + '/UsersRequests/ApproveRequest', formData);
+   // console.log(formData);
+    return this.http.delete(this.rootURL + '/UsersRequests/'+value)
+    .toPromise()
+    .then(
+      res =>
+      {
+        this.getStudentRequestsList();
       }
     );
   }

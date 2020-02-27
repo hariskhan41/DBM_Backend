@@ -10,6 +10,10 @@ import { AuthGuard } from '../shared/auth/auth.guard';
 // import { AllCoursesComponent } from './pages/all-courses/all-courses.component';
 
 import{AddAnnouncementComponent} from './pages/add-announcement/add-announcement.component';
+import{AddLecturesComponent} from './pages/add-lectures/add-lectures.component';
+import { UploadLectureVideoComponent } from './pages/upload-lecture-video/upload-lecture-video.component';
+import { AllVideosComponent } from './pages/all-videos/all-videos.component';
+import { AllNotesComponent, NotesComponent } from '../notes';
 
 
 
@@ -48,14 +52,26 @@ const routes: Routes = [
     path: 'CourseDashboard',
     component: CourseDashboardComponent
   },
-
-  // { path: 'course', component: CoursesComponent, 
-  //   children :[
-  //     { path: 'AllCourses', component: AllcoursesComponent },
-  //     {path:'AddCourses', component:AddCoursesComponent},
-  //     {path:'CourseDashboard', component:CourseDashboardComponent}
-  //   ]
-  // },
+  {
+    path:'AddLecture',
+    component:AddLecturesComponent
+  },
+  {
+    path:'UploadVideo',
+    component:UploadLectureVideoComponent
+  },
+  {
+    path:'LectureVideos',
+    component:AllVideosComponent
+  },
+  {
+    path:'LectureNotes',
+    component:AllNotesComponent
+  },
+  {
+    path:'AddLectureNote',
+    component:NotesComponent
+  }
 ];
 
 @NgModule({

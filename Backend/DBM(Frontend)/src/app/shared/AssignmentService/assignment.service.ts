@@ -52,10 +52,10 @@ export class AssignmentService {
     this.http.get(this.rootURL + 'Assignment/GetAssignmentFileName/' + A['id'])
       .subscribe(
         res => {
-          alert("res");
-          console.log(res);
+          //alert("res");
+          //console.log(res);
           fName = res['fileName'];
-          alert(fName);
+          //alert(fName);
         }
       );
     // alert("p");

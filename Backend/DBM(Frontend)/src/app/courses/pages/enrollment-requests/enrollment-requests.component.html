@@ -19,16 +19,18 @@
             </tr>
             <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
             <tr *ngFor="let e of service.EnrollmentList">
+                <input type="hidden" name="Id" value="{{e.userId}}">
+               
                 <td>{{e.userName}}</td>
                 <td>{{e.email}}</td>
                 <td>
                         <!-- <a type="submit" mat-raised-button style="margin-left:50px"
                         (click)="EnrolInCourse(course, form)">Not Enrolled</a> -->
-                    <a routerLink='/AddInstitutes'><mat-icon class="icon">done</mat-icon></a>
+                    <a (click)="ApproveRequest(e.userId)"><mat-icon class="icon">done</mat-icon></a>
 
                 </td>
                 <td>
-                        <a routerLink='/AddInstitutes'><mat-icon class="icon">clear</mat-icon></a>
+                    <a (click)="DisApproveRequest(e.userId)"><mat-icon class="icon">clear</mat-icon></a>
                 </td>
             </tr>
         </table>

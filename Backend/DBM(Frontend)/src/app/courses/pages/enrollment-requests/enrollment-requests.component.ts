@@ -12,7 +12,17 @@ export class EnrollmentRequestsComponent implements OnInit {
 
   ngOnInit() {
     this.service.getEnrollmentRequests();
-    console.log(this.service.EnrollmentList);
+    //console.log(this.service.EnrollmentList);
+  }
+
+  ApproveRequest(id:string) {
+    console.log(id);
+    this.service.ApproveRequests(id);
+  }
+
+  DisApproveRequest(id:string)
+  {
+    this.service.DisApproveRequests(id);
   }
 
 }
