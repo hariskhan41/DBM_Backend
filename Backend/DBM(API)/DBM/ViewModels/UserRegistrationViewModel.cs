@@ -19,6 +19,7 @@ namespace DBM.ViewModels
 
         public string LastName { get; set; }
 
+        public string RegistrationNumber { get; set; }
 
         public string Cnic { get; set; }
 

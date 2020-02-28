@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AssignmentService } from 'src/app/shared/AssignmentService/assignment.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-submit-assignment',
@@ -14,7 +15,10 @@ export class SubmitAssignmentComponent implements OnInit {
   public RegistrationNumbers: any[] = [{
     RegNo: ''
   }];
-  constructor(private service: AssignmentService, private http: HttpClient) {
+  SelectedFile = null;
+  temp: string = null;
+
+  constructor(private service: AssignmentService, private http: HttpClient, private toastr: ToastrService) {
 
   }
 
@@ -23,6 +27,10 @@ export class SubmitAssignmentComponent implements OnInit {
     //   file: []
     // })
     this.resetForm();
+  }
+
+  onFileSelected(event) {
+    this.SelectedFile = event.target.files[0];
   }
 
   addGroupMember() {
@@ -47,9 +55,35 @@ export class SubmitAssignmentComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form);
+    // console.log(form);
     console.log(this.RegistrationNumbers);
-    
+    this.service.onSubmitAssignment(this.SelectedFile).subscribe(
+      res => {
+        this.temp = res.toString();
+        console.log(this.temp);
+      }
+    );
+    this.insertRecord(form);
+  }
+
+  insertRecord(form: NgForm) {
+    console.log(form.value);
+    var temp = form.value.SubmissionDate;
+    form.value.SubmissionDate.setHours(temp.getHours() + 5);
+
+    form.value.FilePath = this.SelectedFile.name;
+    form.value.GroupRegNo = new Array<any>();
+    for (let i = 0; i < this.RegistrationNumbers.length; i++) {
+      // alert(temp);
+      form.value.GroupRegNo.push(this.RegistrationNumbers[i]["RegNo"]);
+    }
+    // form.value.GroupRegNo = this.RegistrationNumbers as any[];
+    console.log(form.value.GroupRegNo);
+    this.service.postSubmitAssignment(form.value).subscribe(
+      res => {
+        this.resetForm(form);
+      }
+    )
   }
 
 }

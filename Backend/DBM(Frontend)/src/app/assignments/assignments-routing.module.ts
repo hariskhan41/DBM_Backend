@@ -12,7 +12,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { permittedRoles: ['Teacher'] }
   },
-  { path: 'SubmitAssignment', component: SubmitAssignmentComponent },
+  {
+    path: 'SubmitAssignment',
+    component: SubmitAssignmentComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Student'] }
+  },
 ];
 
 @NgModule({

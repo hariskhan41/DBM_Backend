@@ -34,6 +34,9 @@ export class SignupComponent implements OnInit {
   successfulSave: boolean;
   errors: string[];
   temp1: any;
+  signup: FormGroup;
+  selectedDes: string;
+  isEnabled: boolean;
 
   // constructor(private service: SignUpService) {
 
@@ -61,6 +64,25 @@ export class SignupComponent implements OnInit {
       console.log(prop);
     }
     this.errors = [];
+    this.isEnabled = true;
+    // this.onChanges();
+  }
+
+  changeDes() {
+    // console.log(this.selectedDes);
+    if (this.selectedDes == 'Student') {
+      this.isEnabled = false;
+    }
+    else {
+      this.isEnabled = true;
+      this.resetRegNo();
+    }
+  }
+
+  resetRegNo(form?: NgForm) {
+    if (form != null) {
+      this.service.formData.RegistrationNumber = '';
+    }
   }
 
   resetForm(form?: NgForm) {
@@ -79,7 +101,8 @@ export class SignupComponent implements OnInit {
       //LoginStatus: 0,
       //ActiveStatue: 0,
       //InstituteId: 0,
-      InstituteName: ''
+      InstituteName: '',
+      RegistrationNumber: ''
     }
   }
 
@@ -87,6 +110,9 @@ export class SignupComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     let error_msg: {};
+    if (this.selectedDes != 'Student') {
+      form.value.RegistrationNumber = '';
+    }
     this.service.postAddUser(form.value).subscribe(
       res => {
         this.resetForm(form);
@@ -131,18 +157,16 @@ export class SignupComponent implements OnInit {
 
   uniqueEmailValidator(s: string): ValidatorFn {
     return (control: AbstractControl): { [key: string]: string } | null => {
-      if (s == "")
-      {
+      if (s == "") {
         return { 'InvalidEmail': "Unique Email Error" }
       }
       return null;
     };
   }
 
-  getErrorMessageUniqueEmail()
-  {
-    return this.email.hasError('uniqueEmailValidator') ? 'Unique Email Error':
-    '';
+  getErrorMessageUniqueEmail() {
+    return this.email.hasError('uniqueEmailValidator') ? 'Unique Email Error' :
+      '';
   }
 
   getErrorMessageEmail() {

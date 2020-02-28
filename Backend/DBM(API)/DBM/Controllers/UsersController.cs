@@ -72,6 +72,7 @@ namespace DBM.Controllers
             Users u = new Users();
             u.FirstName = model.FirstName;
             u.LastName = model.LastName;
+            u.RegNo = model.RegistrationNumber;
             u.Cnic = model.Cnic;
             u.Email = model.Email;
             u.Password = model.Password;
@@ -143,6 +144,7 @@ namespace DBM.Controllers
             Users u = new Users();
             u.FirstName = users.FirstName;
             u.LastName = users.LastName;
+            u.RegNo = users.RegistrationNumber;
             u.Cnic = users.Cnic;
             u.Email = users.Email;
             u.Password = users.Password;

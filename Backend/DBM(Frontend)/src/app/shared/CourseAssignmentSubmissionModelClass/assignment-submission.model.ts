@@ -6,5 +6,5 @@ export class AssignmentSubmission {
     Email: String;
     StartDateTime: Date;
     GroupId: number;
-    GroupRegNo: string[];
+    GroupRegNo: any[];
 }

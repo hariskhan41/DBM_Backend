@@ -28,6 +28,10 @@ export class AssignmentService {
     return this.http.post(this.rootURL + 'Assignment/SaveAssignment/' + localStorage.getItem('CourseId'), formData);
   }
 
+  postSubmitAssignment(formDataSubmitAssignment: Assignment) {
+    return this.http.post(this.rootURL + 'AssignmentSubmission/SubmitAssignment/' + localStorage.getItem('AssignmentId'), formDataSubmitAssignment);
+  }
+
   getAssignmentList() {
     this.http.get(this.rootURL + 'Assignment/' + localStorage.getItem('CourseId'))
       .toPromise()
@@ -89,11 +93,12 @@ export class AssignmentService {
     const fd = new FormData();
     fd.append('image', selectedFile, selectedFile.name);
     return this.http.post(this.rootURL + 'Assignment/Upload', fd)
-    // .subscribe(
-    //   res => {
-    //     console.log(res);
-    //   }
-    // );
+  }
+
+  onSubmitAssignment(selectedFile) {
+    const fd = new FormData();
+    fd.append('SubmittedAssignments', selectedFile, selectedFile.name);
+    return this.http.post(this.rootURL + 'AssignmentSubmission/Upload', fd);
   }
 
   // postFile(fileToUpload: File) {

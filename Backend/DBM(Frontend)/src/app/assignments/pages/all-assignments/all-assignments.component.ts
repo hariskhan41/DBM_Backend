@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDateFormats } from '@angular/material';
 import { Moment } from 'moment';
 import * as moment from 'moment';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { Assignment } from 'src/app/shared/CourseAssignementModelClass/assignment.model';
 import { AssignmentService } from 'src/app/shared/AssignmentService/assignment.service';
 
@@ -77,7 +77,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AllAssignmentsComponent implements OnInit {
 
-  constructor(private service: AssignmentService) { }
+  constructor(private service: AssignmentService, private router: Router) { }
 
   lst: Assignment[];
 
@@ -95,6 +95,13 @@ export class AllAssignmentsComponent implements OnInit {
     // console.log(A);
     // alert(A['id']);
     this.service.downloadFile(A);
+  }
+
+  Submit(A: Assignment) {
+    alert(A["id"]);
+    // console.log(A);
+    localStorage.setItem('AssignmentId', String(A["id"]));
+    this.router.navigate(['/SubmitAssignment']);
   }
 
 }

@@ -19,6 +19,8 @@ namespace DBM.ViewModels
 
         public string Title { get; set; }
 
+        public List<string> GroupRegNo { get; set; }
+
         public DateTime SubmissionDate { get; set; }
 
         public DateTime PostSubmissionDateTime { get; set; }
