@@ -38,21 +38,6 @@
                     <owl-date-time #dt1></owl-date-time>
                 </mat-form-field>
 
-
-
-                <!-- <mat-form-field appearance="outline" class="form-input" color="accent">
-                    <mat-label>Start Date and Time</mat-label>
-                    <input matInput [owlDateTime]="dt2" placeholder="mm-dd-yyyy, 12:00 AM"
-                        name="StartDateTime" #StartDateTime="ngModel" [ngModel]="service.formData.StartDateTime"
-                        class="form-control" required>
-                    <mat-datepicker-toggle matSuffix [owlDateTimeTrigger]="dt2"></mat-datepicker-toggle>
-                    <mat-datepicker></mat-datepicker>
-                    
-                    <owl-date-time #dt2></owl-date-time>
-                </mat-form-field> -->
-
-
-
                 <br>
 
                 <!-- <form [formGroup]="form" novalidate> -->
@@ -65,21 +50,34 @@
                 </mat-form-field>
 
                 <section *ngFor="let R of RegistrationNumbers; let i = index;">
-                    <!-- input fields inside the *ngFor -->
-                    <!-- <label>Address</label>
-                    <input type="text" [(ngModel)]="R.RegNo" name="R_{{i}}" /> -->
-                    <mat-form-field color="accent" appearance="outline" class="form-input">
+                    
+                    <mat-form-field color="accent" appearance="outline" class="form-input" style="width: 345px;">
+
                         <mat-label>Registration #</mat-label>
                         <input matInput type="text" [(ngModel)]="R.RegNo" name="R_{{i}}" required>
-                        <!-- <input matInput> -->
                     </mat-form-field>
+                    &nbsp;
+                    <a (click)="removeMember(i)" class="btn-RemoveMembers"><i class="fa fa-close"></i></a>
+
                 </section>
-                <div></div>
-                <div style="text-align: left;">
-                    &nbsp; &nbsp; &nbsp;
-                    <button mat-raised-button class="btn-AddMembers" color="primary" type="button"
-                        (click)="addGroupMember()">Add Group Member</button>
+
+
+
+                <div class="row">
+                    <div class="col-xs-6 col-xl-6 item" style="text-align: left;">
+                        &nbsp; &nbsp; &nbsp;
+                        <button mat-raised-button class="btn-AddMembers" color="primary" type="button"
+                            (click)="addGroupMember()">Add Group Member</button>
+                    </div>
+
+
                 </div>
+
+                <!-- <div class="col-xs-6 col-xl-6 item" style="text-align: right;"
+                    *ngFor="let R of RegistrationNumbers; let i = index;">
+                    <button mat-raised-button class="btn-RemoveMembers" color="primary" type="button"
+                        (click)="removeMembers(i)"><i class="fa fa-close"></i></button>
+                </div> -->
 
                 <!-- </form> -->
                 <br>

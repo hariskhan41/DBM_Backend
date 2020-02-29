@@ -39,6 +39,11 @@ export class SubmitAssignmentComponent implements OnInit {
     });
   }
 
+  removeMember(i: number) {
+    alert(i);
+    this.RegistrationNumbers.splice(i, 1);
+  }
+
   resetForm(form?: NgForm) {
     if (form != null)
       form.resetForm();
@@ -81,6 +86,7 @@ export class SubmitAssignmentComponent implements OnInit {
     console.log(form.value.GroupRegNo);
     this.service.postSubmitAssignment(form.value).subscribe(
       res => {
+        this.toastr.success("Assignment Submitted Successfully");
         this.resetForm(form);
       }
     )

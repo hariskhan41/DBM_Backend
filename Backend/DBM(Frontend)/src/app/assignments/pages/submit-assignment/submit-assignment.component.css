@@ -29,7 +29,31 @@
 
 .btn-AddMembers {
   background-color: #007a5a;
-    color: white;
-    width: 40%;
-    height: 45px;
+  color: white;
+  width: 150px;
+  height: 45px;
 }
+
+.btn-RemoveMembers {
+  /* background-color: #007a5a; */
+  background: none;
+  color: #007a5a;
+  width: 30%;
+  height: 5px;
+  cursor: pointer;
+}
+
+/* .col {
+  float: left;
+  width: 40%;
+}
+
+.row {
+  width: 95%;
+}
+
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+} */
