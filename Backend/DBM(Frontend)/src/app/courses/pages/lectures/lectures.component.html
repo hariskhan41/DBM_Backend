@@ -11,17 +11,14 @@
             <col width="100px">
             <col width="100px">
             <tr>
-                <th>Id</th>
                 <th>Name</th>
-                <th>Play</th>
-                <th>Upload</th>
+                <th>Notes</th>
+                <th>Play Video</th>
                 <th>Delete</th>
             </tr>
             <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
             <tr *ngFor="let e of service.list">
                 <input type="hidden" name="Id" value="{{e.courseId}}">
-               
-                <td>{{e.id}}</td>
                 <td>{{e.name}}</td>
                 <td>
                         <!-- <a type="submit" mat-raised-button style="margin-left:50px"

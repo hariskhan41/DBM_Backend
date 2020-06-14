@@ -64,7 +64,7 @@
                             <div class="pad"></div>
                             <div *ngIf="Service2.checkStudent()">
                                 <button mat-raised-button class="btn-add1" color="primary" type="submit"
-                                    style="margin-left:25px" (click)="EnrolInCourse(course, form)">Enrol</button>
+                                    style="margin-left:25px" (click)="EnrolInCourse(course, form)">Enroll</button>
                             </div>
                             <div *ngIf="Service2.checkAdmin()">
                                 <button mat-raised-button class="btn-enrol" color="primary" style="margin-left:05px"
@@ -72,6 +72,7 @@
                                 <button mat-raised-button class="btn-enrol" color="primary" (click)="editCourse(course)"
                                     style="margin-left:80px">Delete</button>
                             </div>
+                            <hr>
                         </mat-card-content>
                     </div>
                 </mat-card>

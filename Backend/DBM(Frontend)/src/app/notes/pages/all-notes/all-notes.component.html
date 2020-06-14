@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <h1 style="margin-left:70px">Lectures Notes</h1>
 <br>
-<a routerLink='/Add'><button mat-raised-button class="btn-add" color="primary">Add Notes</button></a>
+<a routerLink='/AddNotes'><button mat-raised-button class="btn-add" color="primary">Add Notes</button></a>
 <br>
 <br>
 <mat-card class="card-login">
@@ -12,9 +12,7 @@
             <col width="100px">
             <col width="100px">
             <col width="100px">
-            <col width="100px">
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Download</th>
                 <th>Delete</th>
@@ -26,7 +24,6 @@
                 <input type="hidden" name="lectureId" value="{{e.lectureId}}">
                 <input type="hidden" name="FilePath" value="{{e.filePath}}">
                
-                <td>{{e.id}}</td>
                 <td>{{e.name}}</td>
                 <td>
                     <a (click)="Download(e)"> <mat-icon class="icon">save_alt</mat-icon></a>
